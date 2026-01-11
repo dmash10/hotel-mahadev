@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { Menu, X, Phone, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link, useLocation } from "react-router-dom";
 
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const location = useLocation();
 
   const handleCall = () => {
     window.open("tel:+919876543210", "_self");
@@ -15,18 +17,26 @@ const Header = () => {
   };
 
   const navLinks = [
-    { label: "Rooms", href: "#rooms" },
-    { label: "Amenities", href: "#amenities" },
-    { label: "Restaurant", href: "#restaurant" },
-    { label: "Location", href: "#location" },
+    { label: "Home", href: "/" },
+    { label: "Rooms", href: "/rooms" },
+    { label: "Gallery", href: "/gallery" },
+    { label: "Restaurant", href: "/restaurant" },
+    { label: "Amenities", href: "/amenities" },
+    { label: "Location", href: "/location" },
+    { label: "Contact", href: "/contact" },
   ];
+
+  const isActive = (href: string) => {
+    if (href === "/") return location.pathname === "/";
+    return location.pathname.startsWith(href);
+  };
 
   return (
     <header className="sticky top-0 z-50 bg-card/95 backdrop-blur-md border-b border-border">
       <div className="container">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
-          <a href="/" className="flex items-center gap-2">
+          <Link to="/" className="flex items-center gap-2">
             <div className="w-10 h-10 rounded-lg gradient-primary flex items-center justify-center">
               <span className="text-primary-foreground font-bold text-lg">M</span>
             </div>
@@ -34,18 +44,22 @@ const Header = () => {
               <p className="font-heading font-bold text-foreground leading-tight">New Hotel Mahadev</p>
               <p className="text-xs text-muted-foreground">Guptkashi, Uttarakhand</p>
             </div>
-          </a>
+          </Link>
 
           {/* Desktop Nav */}
-          <nav className="hidden lg:flex items-center gap-8">
+          <nav className="hidden xl:flex items-center gap-6">
             {navLinks.map((link) => (
-              <a
+              <Link
                 key={link.label}
-                href={link.href}
-                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+                to={link.href}
+                className={`text-sm font-medium transition-colors ${
+                  isActive(link.href) 
+                    ? "text-primary" 
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
           </nav>
 
@@ -64,7 +78,7 @@ const Header = () => {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden p-2 -mr-2"
+            className="xl:hidden p-2 -mr-2"
           >
             {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
@@ -72,17 +86,21 @@ const Header = () => {
 
         {/* Mobile Menu */}
         {mobileMenuOpen && (
-          <div className="lg:hidden border-t border-border py-4 animate-fade-in">
-            <nav className="flex flex-col gap-2">
+          <div className="xl:hidden border-t border-border py-4 animate-fade-in">
+            <nav className="flex flex-col gap-1">
               {navLinks.map((link) => (
-                <a
+                <Link
                   key={link.label}
-                  href={link.href}
+                  to={link.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="px-4 py-3 rounded-lg text-foreground font-medium hover:bg-muted transition-colors"
+                  className={`px-4 py-3 rounded-lg font-medium transition-colors ${
+                    isActive(link.href)
+                      ? "bg-primary/10 text-primary"
+                      : "text-foreground hover:bg-muted"
+                  }`}
                 >
                   {link.label}
-                </a>
+                </Link>
               ))}
             </nav>
           </div>
