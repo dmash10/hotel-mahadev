@@ -1,122 +1,125 @@
 import { Button } from "@/components/ui/button";
-import { Users, Wifi, Droplets, Bath, MessageCircle } from "lucide-react";
+import { Users, Wifi, Droplets, Bath, MessageCircle, ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 import roomDouble from "@/assets/room-double.jpg";
 import roomTriple from "@/assets/room-triple.jpg";
 import roomQuad from "@/assets/room-quad.jpg";
 
-interface RoomCardProps {
-  name: string;
-  description: string;
-  maxGuests: number;
-  price: number;
-  image: string;
-  available: boolean;
-}
-
-const RoomCard = ({ name, description, maxGuests, price, image, available }: RoomCardProps) => {
-  const handleBooking = () => {
-    const message = encodeURIComponent(`Hi, I'm interested in booking the ${name}. Please let me know availability.`);
-    window.open(`https://wa.me/919876543210?text=${message}`, "_blank");
-  };
-
-  return (
-    <div className="bg-card rounded-2xl shadow-card overflow-hidden group hover:shadow-elevated transition-all duration-300">
-      <div className="relative h-48 md:h-56 overflow-hidden">
-        <img
-          src={image}
-          alt={name}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-        />
-        {available && (
-          <span className="absolute top-3 left-3 bg-success text-success-foreground px-3 py-1 rounded-full text-xs font-semibold">
-            Available
-          </span>
-        )}
-        <div className="absolute top-3 right-3 bg-price text-price-foreground px-3 py-1 rounded-full text-sm font-bold">
-          ₹{price.toLocaleString()}/night
-        </div>
-      </div>
-
-      <div className="p-5">
-        <h3 className="font-heading text-lg font-bold text-foreground mb-2">{name}</h3>
-        <p className="text-muted-foreground text-sm mb-4">{description}</p>
-
-        <div className="flex flex-wrap gap-3 mb-4">
-          <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
-            <Users className="h-3.5 w-3.5" />
-            <span>Up to {maxGuests} guests</span>
-          </div>
-          <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
-            <Wifi className="h-3.5 w-3.5" />
-            <span>Free WiFi</span>
-          </div>
-          <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
-            <Droplets className="h-3.5 w-3.5" />
-            <span>Hot Water</span>
-          </div>
-          <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
-            <Bath className="h-3.5 w-3.5" />
-            <span>Attached Bath</span>
-          </div>
-        </div>
-
-        <Button onClick={handleBooking} variant="hero" className="w-full" size="lg">
-          <MessageCircle className="h-4 w-4" />
-          Book on WhatsApp
-        </Button>
-      </div>
-    </div>
-  );
-};
-
 const rooms = [
   {
+    id: "double",
     name: "Double Bed Room",
-    description: "A comfortable room for two. Good for couples, friends, or solo travellers who prefer extra space.",
     maxGuests: 2,
-    price: 1500,
+    fakePrice: 2500,
+    realPrice: 1500,
+    discount: 40,
     image: roomDouble,
     available: true,
   },
   {
+    id: "triple",
     name: "Triple Bed Room",
-    description: "A practical option for three guests. Often chosen by small families or groups travelling together.",
     maxGuests: 3,
-    price: 2200,
+    fakePrice: 3500,
+    realPrice: 2200,
+    discount: 37,
     image: roomTriple,
     available: true,
   },
   {
-    name: "Quad Bed Room",
-    description: "Designed for families or groups of four. Spacious enough to stay comfortably without feeling crowded.",
+    id: "four",
+    name: "Four Bed Room",
     maxGuests: 4,
-    price: 2800,
+    fakePrice: 4500,
+    realPrice: 2800,
+    discount: 38,
     image: roomQuad,
     available: true,
   },
 ];
 
 const RoomsSection = () => {
+  const handleBooking = (roomName: string) => {
+    const message = encodeURIComponent(`Hi, I'm interested in booking the ${roomName}. Please let me know availability.`);
+    window.open(`https://wa.me/919876543210?text=${message}`, "_blank");
+  };
+
   return (
     <section className="py-16 md:py-20 bg-muted/30">
       <div className="container">
-        <div className="text-center mb-12 animate-fade-in">
+        <div className="text-center mb-10 animate-fade-in">
           <span className="text-primary font-semibold text-sm uppercase tracking-wider">Our Rooms</span>
           <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mt-2 mb-4">
-            Simple, Clean & Comfortable
+            Book Direct & Save More
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Choose based on how many people you're travelling with. All rooms include hot water, 
-            attached bathrooms, and access to the restaurant and parking.
+            All rooms include hot water, attached bathrooms, and access to restaurant and parking.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+        <div className="grid md:grid-cols-3 gap-6 mb-8">
           {rooms.map((room, index) => (
-            <div key={room.name} className="animate-slide-up" style={{ animationDelay: `${index * 150}ms` }}>
-              <RoomCard {...room} />
+            <div
+              key={room.id}
+              className="bg-card rounded-xl overflow-hidden shadow-card hover:shadow-elevated transition-all duration-300 group animate-slide-up"
+              style={{ animationDelay: `${index * 100}ms` }}
+            >
+              {/* Image */}
+              <div className="relative h-44 overflow-hidden">
+                <img
+                  src={room.image}
+                  alt={room.name}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                {room.available && (
+                  <span className="absolute top-3 left-3 bg-success text-success-foreground px-2 py-0.5 rounded text-xs font-semibold">
+                    Available
+                  </span>
+                )}
+                <div className="absolute top-3 right-3 bg-destructive text-destructive-foreground px-2 py-0.5 rounded text-xs font-bold">
+                  {room.discount}% OFF
+                </div>
+              </div>
+
+              {/* Content */}
+              <div className="p-4">
+                <div className="flex items-center justify-between mb-2">
+                  <h3 className="font-heading font-bold text-foreground">{room.name}</h3>
+                  <span className="text-xs text-muted-foreground flex items-center gap-1">
+                    <Users className="h-3 w-3" /> {room.maxGuests}
+                  </span>
+                </div>
+
+                {/* Price */}
+                <div className="flex items-baseline gap-2 mb-3">
+                  <span className="text-sm text-destructive line-through">₹{room.fakePrice.toLocaleString()}</span>
+                  <span className="text-xl font-bold text-success">₹{room.realPrice.toLocaleString()}</span>
+                  <span className="text-xs text-muted-foreground">/night</span>
+                </div>
+
+                {/* Quick Amenities */}
+                <div className="flex gap-3 text-xs text-muted-foreground mb-4">
+                  <span className="flex items-center gap-1"><Wifi className="h-3 w-3" /> WiFi</span>
+                  <span className="flex items-center gap-1"><Droplets className="h-3 w-3" /> Hot Water</span>
+                  <span className="flex items-center gap-1"><Bath className="h-3 w-3" /> Attached</span>
+                </div>
+
+                <Button onClick={() => handleBooking(room.name)} variant="hero" size="default" className="w-full">
+                  <MessageCircle className="h-4 w-4" />
+                  Book on WhatsApp
+                </Button>
+              </div>
             </div>
           ))}
+        </div>
+
+        <div className="text-center">
+          <Button asChild variant="outline" size="lg">
+            <Link to="/rooms">
+              View All Rooms & Details
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+          </Button>
         </div>
       </div>
     </section>
