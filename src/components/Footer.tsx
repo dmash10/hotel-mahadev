@@ -1,4 +1,5 @@
 import { Phone, MessageCircle, MapPin, Mail } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -35,24 +36,34 @@ const Footer = () => {
             <h4 className="font-heading font-bold mb-4">Quick Links</h4>
             <ul className="space-y-2">
               <li>
-                <a href="#rooms" className="text-primary-foreground/70 hover:text-primary-foreground transition-colors">
+                <Link to="/rooms" className="text-primary-foreground/70 hover:text-primary-foreground transition-colors">
                   Our Rooms
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#amenities" className="text-primary-foreground/70 hover:text-primary-foreground transition-colors">
+                <Link to="/gallery" className="text-primary-foreground/70 hover:text-primary-foreground transition-colors">
+                  Gallery
+                </Link>
+              </li>
+              <li>
+                <Link to="/amenities" className="text-primary-foreground/70 hover:text-primary-foreground transition-colors">
                   Amenities
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#restaurant" className="text-primary-foreground/70 hover:text-primary-foreground transition-colors">
+                <Link to="/restaurant" className="text-primary-foreground/70 hover:text-primary-foreground transition-colors">
                   Restaurant
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#location" className="text-primary-foreground/70 hover:text-primary-foreground transition-colors">
+                <Link to="/location" className="text-primary-foreground/70 hover:text-primary-foreground transition-colors">
                   Location
-                </a>
+                </Link>
+              </li>
+              <li>
+                <Link to="/contact" className="text-primary-foreground/70 hover:text-primary-foreground transition-colors">
+                  Contact
+                </Link>
               </li>
             </ul>
           </div>
