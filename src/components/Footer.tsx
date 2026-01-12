@@ -1,9 +1,12 @@
 import { Phone, MessageCircle, MapPin, Mail } from "lucide-react";
-import { Link } from "react-router-dom";
+import TransitionLink from "@/components/TransitionLink";
 
 const Footer = () => {
   return (
-    <footer className="bg-foreground text-primary-foreground py-12 md:py-16">
+    <footer 
+      className="bg-foreground text-primary-foreground py-12 md:py-16"
+      style={{ viewTransitionName: "site-footer" }}
+    >
       <div className="container">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
           {/* Brand */}
@@ -36,34 +39,34 @@ const Footer = () => {
             <h4 className="font-heading font-bold mb-4">Quick Links</h4>
             <ul className="space-y-2">
               <li>
-                <Link to="/rooms" className="text-primary-foreground/70 hover:text-primary-foreground transition-colors">
+                <TransitionLink to="/rooms" className="text-primary-foreground/70 hover:text-primary-foreground transition-colors">
                   Our Rooms
-                </Link>
+                </TransitionLink>
               </li>
               <li>
-                <Link to="/gallery" className="text-primary-foreground/70 hover:text-primary-foreground transition-colors">
+                <TransitionLink to="/gallery" className="text-primary-foreground/70 hover:text-primary-foreground transition-colors">
                   Gallery
-                </Link>
+                </TransitionLink>
               </li>
               <li>
-                <Link to="/amenities" className="text-primary-foreground/70 hover:text-primary-foreground transition-colors">
+                <TransitionLink to="/amenities" className="text-primary-foreground/70 hover:text-primary-foreground transition-colors">
                   Amenities
-                </Link>
+                </TransitionLink>
               </li>
               <li>
-                <Link to="/restaurant" className="text-primary-foreground/70 hover:text-primary-foreground transition-colors">
+                <TransitionLink to="/restaurant" className="text-primary-foreground/70 hover:text-primary-foreground transition-colors">
                   Restaurant
-                </Link>
+                </TransitionLink>
               </li>
               <li>
-                <Link to="/location" className="text-primary-foreground/70 hover:text-primary-foreground transition-colors">
+                <TransitionLink to="/location" className="text-primary-foreground/70 hover:text-primary-foreground transition-colors">
                   Location
-                </Link>
+                </TransitionLink>
               </li>
               <li>
-                <Link to="/contact" className="text-primary-foreground/70 hover:text-primary-foreground transition-colors">
+                <TransitionLink to="/contact" className="text-primary-foreground/70 hover:text-primary-foreground transition-colors">
                   Contact
-                </Link>
+                </TransitionLink>
               </li>
             </ul>
           </div>

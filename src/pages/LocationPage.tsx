@@ -43,15 +43,23 @@ const LocationPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background pb-20 md:pb-0">
+    <div className="min-h-screen bg-background pb-20 md:pb-0" style={{ viewTransitionName: "page-content" }}>
       <Header />
       <main>
         {/* Hero Banner */}
-        <section className="relative h-64 md:h-96 overflow-hidden">
-          <img src={locationView} alt="Location" className="w-full h-full object-cover" />
+        <section 
+          className="relative h-64 md:h-96 overflow-hidden"
+          style={{ viewTransitionName: "hero-section" }}
+        >
+          <img 
+            src={locationView} 
+            alt="Location" 
+            className="w-full h-full object-cover" 
+            style={{ viewTransitionName: "hero-image" }}
+          />
           <div className="absolute inset-0 bg-foreground/50" />
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="text-center">
+            <div className="text-center" style={{ viewTransitionName: "section-header" }}>
               <h1 className="font-heading text-3xl md:text-5xl font-bold text-white mb-4">Location</h1>
               <p className="text-white/80 text-lg max-w-xl mx-auto px-4">
                 Right on the Kedarnath pilgrimage route, in the heart of Guptkashi
@@ -95,7 +103,10 @@ const LocationPage = () => {
                 </Button>
               </div>
 
-              <div className="bg-muted rounded-xl overflow-hidden h-80 md:h-96">
+              <div 
+                className="bg-muted rounded-xl overflow-hidden h-80 md:h-96"
+                style={{ viewTransitionName: "map-section" }}
+              >
                 <iframe
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3456.789!2d79.0876!3d30.5234!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzDCsDMxJzI0LjIiTiA3OcKwMDUnMTUuNCJF!5e0!3m2!1sen!2sin!4v1234567890"
                   width="100%"
@@ -118,8 +129,12 @@ const LocationPage = () => {
               Distances from Hotel
             </h3>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-              {distances.map((item) => (
-                <div key={item.place} className="bg-card rounded-xl p-4 text-center shadow-sm">
+              {distances.map((item, index) => (
+                <div 
+                  key={item.place} 
+                  className="bg-card rounded-xl p-4 text-center shadow-sm"
+                  style={{ viewTransitionName: `distance-card-${index + 1}` }}
+                >
                   <Mountain className="h-6 w-6 text-primary mx-auto mb-2" />
                   <p className="font-bold text-foreground">{item.distance}</p>
                   <p className="text-sm text-muted-foreground">{item.place}</p>
@@ -140,8 +155,12 @@ const LocationPage = () => {
               How to Reach Guptkashi
             </h3>
             <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-              {howToReach.map((item) => (
-                <div key={item.title} className="bg-card p-6 rounded-xl border border-border">
+              {howToReach.map((item, index) => (
+                <div 
+                  key={item.title} 
+                  className="bg-card p-6 rounded-xl border border-border"
+                  style={{ viewTransitionName: `contact-card-${index + 1}` }}
+                >
                   <div className="flex items-start gap-4">
                     <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
                       <item.icon className="h-6 w-6 text-primary" />

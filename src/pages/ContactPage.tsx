@@ -49,15 +49,23 @@ Please confirm availability.`;
   };
 
   return (
-    <div className="min-h-screen bg-background pb-20 md:pb-0">
+    <div className="min-h-screen bg-background pb-20 md:pb-0" style={{ viewTransitionName: "page-content" }}>
       <Header />
       <main>
         {/* Hero Banner */}
-        <section className="relative h-64 md:h-80 overflow-hidden">
-          <img src={hotelExterior} alt="Contact Us" className="w-full h-full object-cover" />
+        <section 
+          className="relative h-64 md:h-80 overflow-hidden"
+          style={{ viewTransitionName: "hero-section" }}
+        >
+          <img 
+            src={hotelExterior} 
+            alt="Contact Us" 
+            className="w-full h-full object-cover" 
+            style={{ viewTransitionName: "hero-image" }}
+          />
           <div className="absolute inset-0 bg-foreground/60" />
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="text-center">
+            <div className="text-center" style={{ viewTransitionName: "section-header" }}>
               <h1 className="font-heading text-3xl md:text-5xl font-bold text-white mb-4">Contact & Booking</h1>
               <p className="text-white/80 text-lg max-w-xl mx-auto px-4">
                 Get in touch with us directly. We respond quickly on WhatsApp.
@@ -86,6 +94,7 @@ Please confirm availability.`;
                   <a
                     href="tel:+919876543210"
                     className="flex items-center gap-4 p-4 bg-card rounded-xl border border-border hover:border-primary/30 transition-colors"
+                    style={{ viewTransitionName: "contact-card-1" }}
                   >
                     <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
                       <Phone className="h-5 w-5 text-primary" />
@@ -101,6 +110,7 @@ Please confirm availability.`;
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-4 p-4 bg-card rounded-xl border border-border hover:border-[#25D366]/30 transition-colors"
+                    style={{ viewTransitionName: "contact-card-2" }}
                   >
                     <div className="w-12 h-12 rounded-full bg-[#25D366]/10 flex items-center justify-center">
                       <MessageCircle className="h-5 w-5 text-[#25D366]" />
@@ -114,6 +124,7 @@ Please confirm availability.`;
                   <a
                     href="mailto:info@hotelmahadev.com"
                     className="flex items-center gap-4 p-4 bg-card rounded-xl border border-border hover:border-primary/30 transition-colors"
+                    style={{ viewTransitionName: "contact-card-3" }}
                   >
                     <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
                       <Mail className="h-5 w-5 text-primary" />
@@ -124,7 +135,10 @@ Please confirm availability.`;
                     </div>
                   </a>
 
-                  <div className="flex items-start gap-4 p-4 bg-card rounded-xl border border-border">
+                  <div 
+                    className="flex items-start gap-4 p-4 bg-card rounded-xl border border-border"
+                    style={{ viewTransitionName: "contact-card-4" }}
+                  >
                     <div className="w-12 h-12 rounded-full bg-destructive/10 flex items-center justify-center flex-shrink-0">
                       <MapPin className="h-5 w-5 text-destructive" />
                     </div>
@@ -145,7 +159,10 @@ Please confirm availability.`;
               </div>
 
               {/* Booking Form */}
-              <div className="bg-card rounded-2xl shadow-elevated p-6 md:p-8">
+              <div 
+                className="bg-card rounded-2xl shadow-elevated p-6 md:p-8"
+                style={{ viewTransitionName: "booking-form" }}
+              >
                 <h3 className="font-heading text-xl font-bold text-foreground mb-6">Send Booking Request</h3>
                 
                 <form onSubmit={handleWhatsAppSubmit} className="space-y-4">

@@ -190,19 +190,64 @@
   navigation: auto;
 }
 
+/* Root page transitions */
 ::view-transition-old(root),
 ::view-transition-new(root) {
   animation-duration: 0.4s;
   animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Room card to detail transitions */
-::view-transition-old(room-card-*),
-::view-transition-new(room-card-*) {
+/* Page content transitions */
+::view-transition-group(page-content) {
+  animation-duration: 0.5s;
+  animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Hero section transitions */
+::view-transition-group(hero-section) {
+  animation-duration: 0.6s;
+  animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+::view-transition-old(hero-section) {
+  animation: hero-fade-out 0.4s ease-out forwards;
+}
+
+::view-transition-new(hero-section) {
+  animation: hero-fade-in 0.6s ease-out forwards;
+}
+
+/* Hero image specific transition */
+::view-transition-group(hero-image) {
+  animation-duration: 0.7s;
+  animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Section headers */
+::view-transition-group(section-header) {
   animation-duration: 0.5s;
   animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* Cards and grid items */
+::view-transition-group(card) {
+  animation-duration: 0.45s;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Navigation header */
+::view-transition-group(site-header) {
+  animation-duration: 0.3s;
+  animation-timing-function: ease-out;
+}
+
+/* Footer */
+::view-transition-group(site-footer) {
+  animation-duration: 0.4s;
+  animation-timing-function: ease-out;
+}
+
+/* Room card transitions */
 ::view-transition-group(room-image-*) {
   animation-duration: 0.6s;
   animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -215,6 +260,35 @@
 
 ::view-transition-group(room-price-*) {
   animation-duration: 0.45s;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Gallery image transitions */
+::view-transition-group(gallery-image-*) {
+  animation-duration: 0.55s;
+  animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Menu/amenity card transitions */
+::view-transition-group(amenity-card-*) {
+  animation-duration: 0.4s;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+::view-transition-group(menu-card-*) {
+  animation-duration: 0.45s;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Contact card transitions */
+::view-transition-group(contact-card-*) {
+  animation-duration: 0.4s;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Distance card transitions */
+::view-transition-group(distance-card-*) {
+  animation-duration: 0.35s;
   animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -231,10 +305,12 @@
   from {
     opacity: 1;
     filter: blur(0);
+    transform: scale(1);
   }
   to {
     opacity: 0;
     filter: blur(4px);
+    transform: scale(0.98);
   }
 }
 
@@ -242,9 +318,87 @@
   from {
     opacity: 0;
     filter: blur(4px);
+    transform: scale(1.02);
   }
   to {
     opacity: 1;
     filter: blur(0);
+    transform: scale(1);
   }
+}
+
+@keyframes hero-fade-out {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes hero-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Slide animations for specific elements */
+@keyframes slide-in-from-right {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-in-from-left {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-in-from-bottom {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Form and CTA transitions */
+::view-transition-group(booking-form) {
+  animation-duration: 0.5s;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+::view-transition-new(booking-form) {
+  animation: slide-in-from-right 0.5s ease-out forwards;
+}
+
+/* Map transition */
+::view-transition-group(map-section) {
+  animation-duration: 0.5s;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+::view-transition-new(map-section) {
+  animation: slide-in-from-bottom 0.5s ease-out forwards;
 }

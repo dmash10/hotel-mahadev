@@ -27,15 +27,23 @@ const menuItems = [
 
 const RestaurantPage = () => {
   return (
-    <div className="min-h-screen bg-background pb-20 md:pb-0">
+    <div className="min-h-screen bg-background pb-20 md:pb-0" style={{ viewTransitionName: "page-content" }}>
       <Header />
       <main>
         {/* Hero Banner */}
-        <section className="relative h-64 md:h-96 overflow-hidden">
-          <img src={restaurant} alt="Hotel Restaurant" className="w-full h-full object-cover" />
+        <section 
+          className="relative h-64 md:h-96 overflow-hidden"
+          style={{ viewTransitionName: "hero-section" }}
+        >
+          <img 
+            src={restaurant} 
+            alt="Hotel Restaurant" 
+            className="w-full h-full object-cover" 
+            style={{ viewTransitionName: "hero-image" }}
+          />
           <div className="absolute inset-0 bg-foreground/60" />
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="text-center">
+            <div className="text-center" style={{ viewTransitionName: "section-header" }}>
               <h1 className="font-heading text-3xl md:text-5xl font-bold text-white mb-4">Restaurant</h1>
               <p className="text-white/80 text-lg max-w-xl mx-auto px-4">
                 Hot, fresh, vegetarian meals prepared with care. You don't have to step out after a long journey.
@@ -60,21 +68,30 @@ const RestaurantPage = () => {
 
             {/* Features */}
             <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-16">
-              <div className="bg-card p-6 rounded-xl border border-border text-center">
+              <div 
+                className="bg-card p-6 rounded-xl border border-border text-center"
+                style={{ viewTransitionName: "menu-card-1" }}
+              >
                 <div className="w-14 h-14 rounded-full bg-success/10 flex items-center justify-center mx-auto mb-4">
                   <Leaf className="h-7 w-7 text-success" />
                 </div>
                 <h3 className="font-heading font-bold text-foreground mb-2">100% Vegetarian</h3>
                 <p className="text-sm text-muted-foreground">Pure vegetarian kitchen with no non-veg items</p>
               </div>
-              <div className="bg-card p-6 rounded-xl border border-border text-center">
+              <div 
+                className="bg-card p-6 rounded-xl border border-border text-center"
+                style={{ viewTransitionName: "menu-card-2" }}
+              >
                 <div className="w-14 h-14 rounded-full bg-price/10 flex items-center justify-center mx-auto mb-4">
                   <UtensilsCrossed className="h-7 w-7 text-price" />
                 </div>
                 <h3 className="font-heading font-bold text-foreground mb-2">Freshly Prepared</h3>
                 <p className="text-sm text-muted-foreground">Every dish is cooked fresh, not reheated</p>
               </div>
-              <div className="bg-card p-6 rounded-xl border border-border text-center">
+              <div 
+                className="bg-card p-6 rounded-xl border border-border text-center"
+                style={{ viewTransitionName: "menu-card-3" }}
+              >
                 <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
                   <Clock className="h-7 w-7 text-primary" />
                 </div>
@@ -87,8 +104,12 @@ const RestaurantPage = () => {
             <div className="max-w-4xl mx-auto">
               <h3 className="font-heading text-2xl font-bold text-foreground text-center mb-8">Our Menu</h3>
               <div className="grid md:grid-cols-3 gap-6">
-                {menuItems.map((menu) => (
-                  <div key={menu.category} className="bg-muted/50 rounded-xl p-6">
+                {menuItems.map((menu, index) => (
+                  <div 
+                    key={menu.category} 
+                    className="bg-muted/50 rounded-xl p-6"
+                    style={{ viewTransitionName: `menu-card-${index + 4}` }}
+                  >
                     <div className="flex items-center gap-3 mb-4">
                       <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
                         <menu.icon className="h-5 w-5 text-primary" />

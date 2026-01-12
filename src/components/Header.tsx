@@ -1,11 +1,10 @@
 import { useState } from "react";
 import { Menu, X, Phone, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Link, useLocation } from "react-router-dom";
+import TransitionLink from "@/components/TransitionLink";
 
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const location = useLocation();
 
   const handleCall = () => {
     window.open("tel:+919876543210", "_self");
@@ -26,17 +25,15 @@ const Header = () => {
     { label: "Contact", href: "/contact" },
   ];
 
-  const isActive = (href: string) => {
-    if (href === "/") return location.pathname === "/";
-    return location.pathname.startsWith(href);
-  };
-
   return (
-    <header className="sticky top-0 z-50 bg-card/95 backdrop-blur-md border-b border-border">
+    <header 
+      className="sticky top-0 z-50 bg-card/95 backdrop-blur-md border-b border-border"
+      style={{ viewTransitionName: "site-header" }}
+    >
       <div className="container">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2">
+          <TransitionLink to="/" className="flex items-center gap-2">
             <div className="w-10 h-10 rounded-lg gradient-primary flex items-center justify-center">
               <span className="text-primary-foreground font-bold text-lg">M</span>
             </div>
@@ -44,22 +41,19 @@ const Header = () => {
               <p className="font-heading font-bold text-foreground leading-tight">New Hotel Mahadev</p>
               <p className="text-xs text-muted-foreground">Guptkashi, Uttarakhand</p>
             </div>
-          </Link>
+          </TransitionLink>
 
           {/* Desktop Nav */}
           <nav className="hidden xl:flex items-center gap-6">
             {navLinks.map((link) => (
-              <Link
+              <TransitionLink
                 key={link.label}
                 to={link.href}
-                className={`text-sm font-medium transition-colors ${
-                  isActive(link.href) 
-                    ? "text-primary" 
-                    : "text-muted-foreground hover:text-foreground"
-                }`}
+                className="text-sm font-medium transition-colors text-muted-foreground hover:text-foreground"
+                activeClassName="text-primary"
               >
                 {link.label}
-              </Link>
+              </TransitionLink>
             ))}
           </nav>
 
@@ -89,18 +83,15 @@ const Header = () => {
           <div className="xl:hidden border-t border-border py-4 animate-fade-in">
             <nav className="flex flex-col gap-1">
               {navLinks.map((link) => (
-                <Link
+                <TransitionLink
                   key={link.label}
                   to={link.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className={`px-4 py-3 rounded-lg font-medium transition-colors ${
-                    isActive(link.href)
-                      ? "bg-primary/10 text-primary"
-                      : "text-foreground hover:bg-muted"
-                  }`}
+                  className="px-4 py-3 rounded-lg font-medium transition-colors text-foreground hover:bg-muted"
+                  activeClassName="bg-primary/10 text-primary"
                 >
                   {link.label}
-                </Link>
+                </TransitionLink>
               ))}
             </nav>
           </div>
