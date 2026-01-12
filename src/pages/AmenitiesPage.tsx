@@ -90,16 +90,16 @@ const AmenitiesPage = () => {
               {featuredAmenities.map((item, index) => (
                 <div
                   key={item.title}
-                  className="group relative animate-fade-in"
+                  className="group relative animate-fade-in h-full"
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
                   {/* Card with gradient border effect */}
-                  <div className="relative overflow-hidden rounded-2xl md:rounded-3xl bg-card border border-border/50 shadow-lg shadow-black/5">
+                  <div className="relative overflow-hidden rounded-2xl md:rounded-3xl bg-card border border-border/50 shadow-lg shadow-black/5 h-full flex flex-col">
                     {/* Top gradient bar */}
                     <div className={`h-1.5 w-full bg-gradient-to-r ${item.gradient}`} />
                     
                     {/* Content */}
-                    <div className="p-5 md:p-7">
+                    <div className="p-5 md:p-7 flex flex-col flex-1">
                       {/* Icon with glow - always visible on mobile */}
                       <div className="relative mb-5">
                         <div className={`absolute inset-0 w-14 h-14 ${item.iconBg} rounded-2xl blur-xl opacity-50`} />
@@ -110,7 +110,7 @@ const AmenitiesPage = () => {
                       
                       {/* Content */}
                       <h3 className="font-heading text-lg md:text-xl font-bold text-foreground mb-2">{item.title}</h3>
-                      <p className="text-muted-foreground text-sm md:text-base leading-relaxed">{item.description}</p>
+                      <p className="text-muted-foreground text-sm md:text-base leading-relaxed flex-1">{item.description}</p>
                       
                       {/* Bottom accent line - always visible */}
                       <div className={`mt-5 h-1 w-16 md:w-12 rounded-full ${item.accentColor} md:group-hover:w-20 transition-all duration-500`} />
