@@ -126,7 +126,7 @@ const RoomCard = ({ room, onClick }: { room: typeof rooms[0]; onClick: () => voi
   return (
     <div
       onClick={onClick}
-      className="bg-card rounded-xl border border-border hover:border-primary/30 hover:shadow-elevated transition-all duration-300 cursor-pointer group overflow-hidden"
+      className="bg-card rounded-xl border border-border hover:border-primary/30 transition-colors duration-300 cursor-pointer group overflow-hidden"
     >
       <div className="flex flex-col sm:flex-row">
         {/* Image */}
@@ -134,7 +134,7 @@ const RoomCard = ({ room, onClick }: { room: typeof rooms[0]; onClick: () => voi
           <img
             src={room.images[0]}
             alt={room.name}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            className="w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-95"
           />
           {room.available && (
             <span className="absolute top-2 left-2 bg-success text-success-foreground px-2 py-0.5 rounded text-xs font-semibold">
@@ -323,7 +323,7 @@ const RoomDetail = ({ room, onBack }: { room: typeof rooms[0]; onBack: () => voi
 
             {/* Booking Card */}
             <div className="lg:col-span-1">
-              <div className="bg-card rounded-xl border border-border p-6 sticky top-24 shadow-card">
+              <div className="bg-card rounded-xl border border-border p-6 sticky top-24">
                 <div className="mb-4">
                   <div className="flex items-baseline gap-2 mb-1">
                     <span className="text-lg text-destructive line-through">₹{room.fakePrice.toLocaleString()}</span>

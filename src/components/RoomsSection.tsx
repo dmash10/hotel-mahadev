@@ -61,7 +61,7 @@ const RoomsSection = () => {
           {rooms.map((room, index) => (
             <div
               key={room.id}
-              className="bg-card rounded-xl overflow-hidden shadow-card hover:shadow-elevated transition-all duration-300 group animate-slide-up"
+              className="bg-card rounded-xl overflow-hidden border border-transparent hover:border-primary/20 transition-colors duration-300 group animate-slide-up"
               style={{ animationDelay: `${index * 100}ms` }}
             >
               {/* Image */}
@@ -69,7 +69,7 @@ const RoomsSection = () => {
                 <img
                   src={room.image}
                   alt={room.name}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  className="w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-95"
                 />
                 {room.available && (
                   <span className="absolute top-3 left-3 bg-success text-success-foreground px-2 py-0.5 rounded text-xs font-semibold">

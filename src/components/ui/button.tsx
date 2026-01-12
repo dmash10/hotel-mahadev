@@ -5,28 +5,28 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg text-sm font-semibold ring-offset-background transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 active:scale-[0.98]",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg text-sm font-semibold ring-offset-background transition-all duration-300 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 relative overflow-hidden",
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground hover:bg-primary-light shadow-md hover:shadow-lg",
-        destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90",
-        outline: "border-2 border-primary bg-background text-primary hover:bg-primary hover:text-primary-foreground",
-        secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
-        ghost: "hover:bg-accent hover:text-accent-foreground",
+        default: "bg-primary text-primary-foreground hover:brightness-110",
+        destructive: "bg-destructive text-destructive-foreground hover:brightness-110",
+        outline: "border-2 border-primary bg-transparent text-primary hover:bg-primary hover:text-primary-foreground",
+        secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/70",
+        ghost: "hover:bg-muted hover:text-foreground",
         link: "text-primary underline-offset-4 hover:underline",
-        // Hero CTA - Primary gradient button
-        hero: "gradient-primary text-primary-foreground shadow-xl hover:shadow-2xl hover:scale-[1.02] text-base font-bold",
-        // WhatsApp button
-        whatsapp: "bg-[#25D366] text-white hover:bg-[#20BA5A] shadow-md hover:shadow-lg",
+        // Hero CTA - Primary gradient button with glow
+        hero: "gradient-primary text-primary-foreground font-bold before:absolute before:inset-0 before:bg-white/0 hover:before:bg-white/10 before:transition-all before:duration-300",
+        // WhatsApp button with smooth brightness
+        whatsapp: "bg-[#25D366] text-white hover:brightness-110",
         // Call button  
-        call: "bg-primary text-primary-foreground hover:bg-primary-light shadow-md",
+        call: "bg-primary text-primary-foreground hover:brightness-110",
         // Price/Orange accent button
-        price: "gradient-price text-white shadow-md hover:shadow-lg font-bold",
+        price: "gradient-price text-white font-bold hover:brightness-110",
         // Success/Green button
-        success: "bg-success text-success-foreground hover:bg-success/90 shadow-md",
-        // Gold accent button
-        gold: "bg-gold text-gold-foreground hover:bg-gold-light shadow-md hover:shadow-lg font-bold",
+        success: "bg-success text-success-foreground hover:brightness-110",
+        // Nav button - clean outline with fill on hover
+        nav: "border border-primary/60 bg-transparent text-primary hover:bg-primary hover:text-primary-foreground",
       },
       size: {
         default: "h-10 px-5 py-2",

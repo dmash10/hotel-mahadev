@@ -65,11 +65,11 @@ const Header = () => {
 
           {/* Desktop CTA */}
           <div className="hidden md:flex items-center gap-3">
-            <Button onClick={handleCall} variant="gold" size="sm">
+            <Button onClick={handleCall} variant="nav" size="sm">
               <Phone className="h-4 w-4" />
               <span className="hidden lg:inline">Call</span>
             </Button>
-            <Button onClick={handleWhatsApp} variant="gold" size="sm">
+            <Button onClick={handleWhatsApp} variant="whatsapp" size="sm">
               <MessageCircle className="h-4 w-4" />
               <span className="hidden lg:inline">WhatsApp</span>
             </Button>

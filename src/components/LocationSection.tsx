@@ -12,7 +12,7 @@ const LocationSection = () => {
       <div className="container">
         <div className="grid lg:grid-cols-2 gap-8 md:gap-12 items-center">
           <div className="animate-slide-up">
-            <div className="relative rounded-2xl overflow-hidden shadow-elevated">
+            <div className="relative rounded-2xl overflow-hidden">
               <img
                 src={locationImg}
                 alt="Kedarnath Mountain View"

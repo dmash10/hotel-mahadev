@@ -88,7 +88,7 @@ Please confirm availability.`;
   };
 
   return (
-    <div className="bg-card/95 backdrop-blur-sm rounded-2xl shadow-2xl w-full max-w-[360px] animate-scale-in overflow-hidden border border-white/20">
+    <div className="bg-card/95 backdrop-blur-sm rounded-2xl w-full max-w-[360px] animate-scale-in overflow-hidden border border-border/50">
       {/* Header with gold accent */}
       <div className="relative bg-gradient-to-r from-primary to-primary-light px-5 py-4 text-primary-foreground">
         <div className="absolute top-0 right-0 w-20 h-20 bg-gold/20 rounded-full blur-2xl -mr-10 -mt-10" />
@@ -229,7 +229,7 @@ Please confirm availability.`;
         </div>
 
         {/* Submit Button */}
-        <Button type="submit" variant="whatsapp" size="lg" className="w-full mt-1 shadow-lg hover:shadow-xl transition-shadow">
+        <Button type="submit" variant="whatsapp" size="lg" className="w-full mt-1">
           <MessageCircle className="h-5 w-5" />
           Book via WhatsApp
         </Button>
