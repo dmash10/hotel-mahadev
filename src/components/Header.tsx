@@ -1,10 +1,19 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Menu, X, Phone, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import TransitionLink from "@/components/TransitionLink";
 
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const handleCall = () => {
     window.open("tel:+919876543210", "_self");
@@ -27,7 +36,11 @@ const Header = () => {
 
   return (
     <header 
-      className="sticky top-0 z-50 bg-card/95 backdrop-blur-md border-b border-border"
+      className={`sticky top-0 z-50 transition-all duration-300 ${
+        isScrolled 
+          ? "bg-background/80 backdrop-blur-md border-b border-border" 
+          : "bg-transparent border-b border-transparent"
+      }`}
       style={{ viewTransitionName: "site-header" }}
     >
       <div className="container">
