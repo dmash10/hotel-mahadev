@@ -38,32 +38,32 @@ const Header = () => {
     <header 
       className={`sticky top-0 z-50 transition-all duration-300 ${
         isScrolled 
-          ? "bg-background/80 backdrop-blur-md border-b border-border" 
-          : "bg-transparent border-b border-transparent"
+          ? "bg-primary/95 backdrop-blur-md shadow-lg shadow-primary/10" 
+          : "bg-gradient-to-r from-primary to-primary-light"
       }`}
       style={{ viewTransitionName: "site-header" }}
     >
       <div className="container">
         <div className="flex items-center justify-between h-16 md:h-20">
-          {/* Logo */}
-          <TransitionLink to="/" className="flex items-center gap-2">
-            <div className="w-10 h-10 rounded-lg gradient-primary flex items-center justify-center">
-              <span className="text-primary-foreground font-bold text-lg">M</span>
+          {/* Logo with gold accent */}
+          <TransitionLink to="/" className="flex items-center gap-2.5">
+            <div className="w-10 h-10 rounded-lg bg-gold flex items-center justify-center shadow-md">
+              <span className="text-primary font-bold text-lg">M</span>
             </div>
             <div className="hidden sm:block">
-              <p className="font-heading font-bold text-foreground leading-tight">New Hotel Mahadev</p>
-              <p className="text-xs text-muted-foreground">Guptkashi, Uttarakhand</p>
+              <p className="font-heading font-bold text-white leading-tight">New Hotel Mahadev</p>
+              <p className="text-xs text-white/70">Guptkashi, Uttarakhand</p>
             </div>
           </TransitionLink>
 
           {/* Desktop Nav */}
-          <nav className="hidden xl:flex items-center gap-6">
+          <nav className="hidden xl:flex items-center gap-1">
             {navLinks.map((link) => (
               <TransitionLink
                 key={link.label}
                 to={link.href}
-                className="text-sm font-medium transition-colors text-muted-foreground hover:text-foreground"
-                activeClassName="text-primary"
+                className="relative px-3 py-2 text-sm font-medium text-white/80 hover:text-white transition-colors rounded-lg hover:bg-white/10"
+                activeClassName="!text-gold bg-white/10"
               >
                 {link.label}
               </TransitionLink>
@@ -71,12 +71,20 @@ const Header = () => {
           </nav>
 
           {/* Desktop CTA */}
-          <div className="hidden md:flex items-center gap-3">
-            <Button onClick={handleCall} variant="nav" size="sm">
+          <div className="hidden md:flex items-center gap-2">
+            <Button 
+              onClick={handleCall} 
+              size="sm"
+              className="bg-white/15 hover:bg-white/25 text-white border-0 backdrop-blur-sm"
+            >
               <Phone className="h-4 w-4" />
               <span className="hidden lg:inline">Call</span>
             </Button>
-            <Button onClick={handleWhatsApp} variant="whatsapp" size="sm">
+            <Button 
+              onClick={handleWhatsApp} 
+              size="sm"
+              className="bg-gold hover:bg-gold/90 text-primary border-0 font-semibold"
+            >
               <MessageCircle className="h-4 w-4" />
               <span className="hidden lg:inline">WhatsApp</span>
             </Button>
@@ -85,7 +93,8 @@ const Header = () => {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="xl:hidden p-2 -mr-2"
+            className="xl:hidden p-2 -mr-2 text-white hover:bg-white/10 rounded-lg transition-colors"
+            aria-label="Toggle menu"
           >
             {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
@@ -93,20 +102,40 @@ const Header = () => {
 
         {/* Mobile Menu */}
         {mobileMenuOpen && (
-          <div className="xl:hidden border-t border-border py-4 animate-fade-in">
+          <div className="xl:hidden border-t border-white/10 py-3 animate-fade-in">
             <nav className="flex flex-col gap-1">
               {navLinks.map((link) => (
                 <TransitionLink
                   key={link.label}
                   to={link.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="px-4 py-3 rounded-lg font-medium transition-colors text-foreground hover:bg-muted"
-                  activeClassName="bg-primary/10 text-primary"
+                  className="px-4 py-3 rounded-lg font-medium text-white/90 hover:bg-white/10 transition-colors"
+                  activeClassName="bg-white/15 text-gold"
                 >
                   {link.label}
                 </TransitionLink>
               ))}
             </nav>
+            
+            {/* Mobile CTA Buttons */}
+            <div className="flex gap-2 mt-4 px-4 pt-3 border-t border-white/10">
+              <Button 
+                onClick={handleCall} 
+                size="sm"
+                className="flex-1 bg-white/15 hover:bg-white/25 text-white border-0"
+              >
+                <Phone className="h-4 w-4 mr-2" />
+                Call Now
+              </Button>
+              <Button 
+                onClick={handleWhatsApp} 
+                size="sm"
+                className="flex-1 bg-gold hover:bg-gold/90 text-primary border-0 font-semibold"
+              >
+                <MessageCircle className="h-4 w-4 mr-2" />
+                WhatsApp
+              </Button>
+            </div>
           </div>
         )}
       </div>
