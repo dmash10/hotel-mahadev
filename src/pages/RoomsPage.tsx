@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { flushSync } from "react-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import StickyMobileCTA from "@/components/StickyMobileCTA";
@@ -124,10 +125,12 @@ const amenityIcons: Record<string, React.ElementType> = {
 
 const RoomCard = ({ room, onClick }: { room: typeof rooms[0]; onClick: () => void }) => {
   const handleClick = () => {
-    // Use View Transitions API if available
+    // View Transitions need a synchronous DOM commit for stable snapshots (prevents flicker)
     if (document.startViewTransition) {
       document.startViewTransition(() => {
-        onClick();
+        flushSync(() => {
+          onClick();
+        });
       });
     } else {
       onClick();
@@ -135,11 +138,7 @@ const RoomCard = ({ room, onClick }: { room: typeof rooms[0]; onClick: () => voi
   };
 
   return (
-    <div
-      onClick={handleClick}
-      className="group relative cursor-pointer"
-      style={{ viewTransitionName: `room-card-${room.id}` }}
-    >
+    <div onClick={handleClick} className="group relative cursor-pointer">
       {/* Card Container - No scale/shadow on hover, smooth border transition */}
       <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-card via-card/95 to-card/90 border border-border/50 transition-[border-color] duration-700 ease-out group-hover:border-primary/40">
         {/* Animated gradient overlay */}
@@ -147,14 +146,14 @@ const RoomCard = ({ room, onClick }: { room: typeof rooms[0]; onClick: () => voi
         
         <div className="flex flex-col md:flex-row">
           {/* Image Section with Parallax Effect */}
-          <div className="relative w-full md:w-56 lg:w-64 h-56 md:h-auto flex-shrink-0 overflow-hidden">
+          <div className="relative w-full md:w-56 lg:w-64 h-56 md:h-auto flex-shrink-0 overflow-hidden bg-muted">
             {/* Parallax Image - translateY on hover instead of scale */}
-            <div className="absolute inset-0 transition-transform duration-700 ease-out group-hover:-translate-y-2">
+            <div className="absolute inset-0 transition-transform duration-700 ease-out group-hover:-translate-y-2 will-change-transform">
               <img
                 src={room.images[0]}
                 alt={room.name}
                 className="w-full h-[110%] object-cover"
-                style={{ viewTransitionName: `room-image-${room.id}` }}
+                decoding="async"
               />
             </div>
             
@@ -192,10 +191,7 @@ const RoomCard = ({ room, onClick }: { room: typeof rooms[0]; onClick: () => voi
             {/* Header with smooth color transition */}
             <div className="flex items-start justify-between gap-4 mb-4">
               <div>
-                <h3 
-                  className="font-heading text-xl md:text-2xl font-bold text-foreground transition-colors duration-500 ease-out group-hover:text-primary"
-                  style={{ viewTransitionName: `room-title-${room.id}` }}
-                >
+                <h3 className="font-heading text-xl md:text-2xl font-bold text-foreground transition-colors duration-500 ease-out group-hover:text-primary">
                   {room.name}
                 </h3>
                 <p className="text-sm text-muted-foreground mt-1 flex items-center gap-2">
@@ -219,12 +215,7 @@ const RoomCard = ({ room, onClick }: { room: typeof rooms[0]; onClick: () => voi
                 <div className="w-px h-10 bg-border/50" />
                 <div className="flex flex-col">
                   <span className="text-xs text-muted-foreground">Now</span>
-                  <span 
-                    className="text-2xl font-bold text-success"
-                    style={{ viewTransitionName: `room-price-${room.id}` }}
-                  >
-                    ₹{room.realPrice.toLocaleString()}
-                  </span>
+                  <span className="text-2xl font-bold text-success">₹{room.realPrice.toLocaleString()}</span>
                 </div>
                 <span className="text-xs text-muted-foreground self-end pb-1">/night</span>
               </div>

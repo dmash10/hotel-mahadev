@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Users, Wifi, Droplets, Bath, MessageCircle, ArrowRight } from "lucide-react";
-import { Link } from "react-router-dom";
+import TransitionLink from "@/components/TransitionLink";
 import roomDouble from "@/assets/room-double.jpg";
 import roomTriple from "@/assets/room-triple.jpg";
 import roomQuad from "@/assets/room-quad.jpg";
@@ -155,10 +155,10 @@ const RoomsSection = () => {
 
         <div className="text-center">
           <Button asChild variant="outline" size="lg">
-            <Link to="/rooms">
+            <TransitionLink to="/rooms">
               View All Rooms & Details
               <ArrowRight className="h-4 w-4" />
-            </Link>
+            </TransitionLink>
           </Button>
         </div>
       </div>

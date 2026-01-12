@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useCallback } from "react";
+import { flushSync } from "react-dom";
 
 type NavigateOptions = {
   replace?: boolean;
@@ -11,10 +12,12 @@ export const useViewTransition = () => {
 
   const navigateWithTransition = useCallback(
     (to: string, options?: NavigateOptions) => {
-      // Check if View Transitions API is supported
+      // View Transitions need a synchronous DOM commit for stable snapshots
       if (document.startViewTransition) {
         document.startViewTransition(() => {
-          navigate(to, options);
+          flushSync(() => {
+            navigate(to, options);
+          });
         });
       } else {
         navigate(to, options);
@@ -29,7 +32,11 @@ export const useViewTransition = () => {
 // Utility to wrap any callback with view transition
 export const withViewTransition = (callback: () => void) => {
   if (document.startViewTransition) {
-    document.startViewTransition(callback);
+    document.startViewTransition(() => {
+      flushSync(() => {
+        callback();
+      });
+    });
   } else {
     callback();
   }
