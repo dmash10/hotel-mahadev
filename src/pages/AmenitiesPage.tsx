@@ -65,30 +65,36 @@ const AmenitiesPage = () => {
               </p>
             </div>
 
-            {/* Featured Amenities - Large Gold Gradient Cards */}
+            {/* Featured Amenities - Premium Cards */}
             <div className="grid md:grid-cols-3 gap-6">
               {featuredAmenities.map((item, index) => (
                 <div
                   key={item.title}
-                  className="group relative animate-fade-in overflow-hidden rounded-2xl"
+                  className="group relative animate-fade-in"
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
-                  {/* Gold Gradient Background */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-gold via-amber-500 to-amber-600 opacity-95" />
-                  
-                  {/* Glass overlay */}
-                  <div className="absolute inset-0 bg-white/5 backdrop-blur-[2px]" />
-                  
-                  {/* Shine effect on hover */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  
-                  {/* Content */}
-                  <div className="relative p-6 md:p-8 text-white">
-                    <div className="w-14 h-14 rounded-2xl bg-white/15 backdrop-blur-sm flex items-center justify-center mb-5 border border-white/20 group-hover:bg-white/25 transition-colors duration-300">
-                      <item.icon className="h-7 w-7" />
+                  {/* Card container with layered design */}
+                  <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-950/30 dark:to-orange-950/20 border border-gold/20 p-1">
+                    {/* Inner card */}
+                    <div className="relative rounded-2xl bg-gradient-to-br from-white/80 to-amber-50/50 dark:from-background/80 dark:to-amber-950/30 p-6 md:p-8 backdrop-blur-sm">
+                      {/* Decorative corner accent */}
+                      <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-gold/20 to-transparent rounded-bl-full" />
+                      
+                      {/* Icon with glow */}
+                      <div className="relative mb-6">
+                        <div className="absolute inset-0 w-16 h-16 bg-gold/20 rounded-2xl blur-xl" />
+                        <div className="relative w-16 h-16 rounded-2xl bg-gradient-to-br from-gold to-amber-500 flex items-center justify-center shadow-lg shadow-gold/25">
+                          <item.icon className="h-8 w-8 text-white" />
+                        </div>
+                      </div>
+                      
+                      {/* Content */}
+                      <h3 className="font-heading text-xl md:text-2xl font-bold text-foreground mb-3">{item.title}</h3>
+                      <p className="text-muted-foreground leading-relaxed">{item.description}</p>
+                      
+                      {/* Bottom accent line */}
+                      <div className="mt-6 h-1 w-12 rounded-full bg-gradient-to-r from-gold to-amber-400 group-hover:w-20 transition-all duration-500" />
                     </div>
-                    <h3 className="font-heading text-xl md:text-2xl font-bold mb-3">{item.title}</h3>
-                    <p className="text-white/85 leading-relaxed">{item.description}</p>
                   </div>
                 </div>
               ))}
@@ -121,19 +127,19 @@ const AmenitiesPage = () => {
                   className="group relative animate-fade-in"
                   style={{ animationDelay: `${index * 40}ms` }}
                 >
-                  {/* Card with gold theme */}
-                  <div className="relative h-full p-4 rounded-xl bg-gold/5 backdrop-blur-sm border border-gold/15 hover:border-gold/40 hover:bg-gold/10 transition-all duration-300">
-                    {/* Subtle shine effect */}
-                    <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-gold/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  {/* Refined card design */}
+                  <div className="relative h-full p-5 rounded-2xl bg-gradient-to-br from-white to-amber-50/50 dark:from-card dark:to-amber-950/10 border border-gold/10 hover:border-gold/30 transition-all duration-300 overflow-hidden">
+                    {/* Subtle corner decoration */}
+                    <div className="absolute -top-4 -right-4 w-16 h-16 bg-gold/10 rounded-full blur-2xl group-hover:bg-gold/20 transition-colors duration-300" />
                     
                     {/* Icon */}
-                    <div className="relative w-10 h-10 rounded-lg bg-gold/10 backdrop-blur-sm flex items-center justify-center mb-3 border border-gold/20 group-hover:bg-gold/20 group-hover:border-gold/40 transition-colors duration-300">
-                      <item.icon className="h-5 w-5 text-gold transition-colors duration-300" />
+                    <div className="relative w-11 h-11 rounded-xl bg-gradient-to-br from-gold/15 to-amber-500/10 flex items-center justify-center mb-4 border border-gold/20 group-hover:from-gold/25 group-hover:to-amber-500/20 transition-all duration-300">
+                      <item.icon className="h-5 w-5 text-gold" />
                     </div>
                     
                     {/* Content */}
-                    <h3 className="relative font-heading font-bold text-foreground text-sm mb-1">{item.title}</h3>
-                    <p className="relative text-xs text-muted-foreground line-clamp-2">{item.description}</p>
+                    <h3 className="relative font-heading font-bold text-foreground text-sm mb-1.5">{item.title}</h3>
+                    <p className="relative text-xs text-muted-foreground leading-relaxed line-clamp-2">{item.description}</p>
                   </div>
                 </div>
               ))}
