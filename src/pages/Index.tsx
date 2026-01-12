@@ -11,21 +11,21 @@ import StickyMobileCTA from "@/components/StickyMobileCTA";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-background pb-20 md:pb-0">
+    <div className="min-h-screen bg-background pb-20 md:pb-0" style={{ viewTransitionName: "page-content" }}>
       <Header />
       <main>
         <HeroSection />
         <TrustStrip />
-        <section id="rooms">
+        <section id="rooms" style={{ viewTransitionName: "rooms-section" }}>
           <RoomsSection />
         </section>
-        <section id="amenities">
+        <section id="amenities" style={{ viewTransitionName: "amenities-section" }}>
           <AmenitiesSection />
         </section>
-        <section id="restaurant">
+        <section id="restaurant" style={{ viewTransitionName: "restaurant-section" }}>
           <RestaurantSection />
         </section>
-        <section id="location">
+        <section id="location" style={{ viewTransitionName: "location-section" }}>
           <LocationSection />
         </section>
         <CTASection />
