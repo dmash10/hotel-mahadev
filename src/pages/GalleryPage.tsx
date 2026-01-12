@@ -2,6 +2,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import StickyMobileCTA from "@/components/StickyMobileCTA";
 import { useState } from "react";
+import { X } from "lucide-react";
 import hotelExterior from "@/assets/hotel-exterior.jpg";
 import roomDouble from "@/assets/room-double.jpg";
 import roomTriple from "@/assets/room-triple.jpg";
@@ -17,14 +18,28 @@ const categories = [
   { id: "surroundings", label: "Surroundings" },
 ];
 
+// Bento grid sizes: "large" = 2x2, "wide" = 2x1, "tall" = 1x2, "normal" = 1x1
 const galleryImages = [
-  { id: 1, src: hotelExterior, category: "hotel", title: "Hotel Exterior" },
-  { id: 2, src: roomDouble, category: "rooms", title: "Double Bed Room" },
-  { id: 3, src: roomTriple, category: "rooms", title: "Triple Bed Room" },
-  { id: 4, src: roomQuad, category: "rooms", title: "Quad Bed Room" },
-  { id: 5, src: restaurant, category: "restaurant", title: "In-house Restaurant" },
-  { id: 6, src: locationView, category: "surroundings", title: "Mountain View" },
+  { id: 1, src: hotelExterior, category: "hotel", title: "Hotel Exterior", size: "large" as const },
+  { id: 2, src: roomDouble, category: "rooms", title: "Double Bed Room", size: "wide" as const },
+  { id: 3, src: roomTriple, category: "rooms", title: "Triple Bed Room", size: "normal" as const },
+  { id: 4, src: roomQuad, category: "rooms", title: "Quad Bed Room", size: "tall" as const },
+  { id: 5, src: restaurant, category: "restaurant", title: "In-house Restaurant", size: "wide" as const },
+  { id: 6, src: locationView, category: "surroundings", title: "Mountain View", size: "large" as const },
 ];
+
+const getBentoClasses = (size: string) => {
+  switch (size) {
+    case "large":
+      return "md:col-span-2 md:row-span-2";
+    case "wide":
+      return "md:col-span-2 md:row-span-1";
+    case "tall":
+      return "md:col-span-1 md:row-span-2";
+    default:
+      return "md:col-span-1 md:row-span-1";
+  }
+};
 
 const GalleryPage = () => {
   const [activeCategory, setActiveCategory] = useState("all");
@@ -38,32 +53,39 @@ const GalleryPage = () => {
     <div className="min-h-screen bg-background pb-20 md:pb-0">
       <Header />
       <main>
-        {/* Hero Banner */}
-        <section className="relative h-64 md:h-80 overflow-hidden">
-          <img src={hotelExterior} alt="Hotel Gallery" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-foreground/60" />
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="text-center">
-              <h1 className="font-heading text-3xl md:text-5xl font-bold text-white mb-4">Photo Gallery</h1>
-              <p className="text-white/80 text-lg max-w-xl mx-auto px-4">
-                Take a look at our hotel, rooms, restaurant, and the beautiful surroundings.
+        {/* Hero Section */}
+        <section className="relative py-16 md:py-20 overflow-hidden">
+          {/* Background gradients */}
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-gold/5" />
+          <div className="absolute top-0 left-1/2 w-96 h-96 bg-primary/10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
+          
+          <div className="container relative z-10">
+            <div className="text-center max-w-3xl mx-auto animate-fade-in">
+              <span className="inline-block px-4 py-1.5 bg-primary/10 text-primary text-sm font-semibold rounded-full mb-4">
+                Photo Gallery
+              </span>
+              <h1 className="font-heading text-3xl md:text-5xl font-bold text-foreground mb-4">
+                Explore Our Hotel
+              </h1>
+              <p className="text-muted-foreground text-lg">
+                Take a look at our rooms, restaurant, and the beautiful mountain surroundings.
               </p>
             </div>
           </div>
         </section>
 
         {/* Category Filters */}
-        <section className="py-8 border-b border-border sticky top-16 md:top-20 bg-background/95 backdrop-blur-md z-40">
+        <section className="py-6 border-b border-border sticky top-16 md:top-20 bg-background/95 backdrop-blur-md z-40">
           <div className="container">
             <div className="flex flex-wrap justify-center gap-2 md:gap-3">
               {categories.map((cat) => (
                 <button
                   key={cat.id}
                   onClick={() => setActiveCategory(cat.id)}
-                  className={`px-4 md:px-6 py-2 rounded-full text-sm font-medium transition-all ${
+                  className={`px-4 md:px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
                     activeCategory === cat.id
-                      ? "bg-primary text-primary-foreground shadow-md"
-                      : "bg-muted text-muted-foreground hover:bg-muted/80"
+                      ? "bg-primary text-primary-foreground"
+                      : "bg-muted text-muted-foreground hover:bg-primary/10 hover:text-primary"
                   }`}
                 >
                   {cat.label}
@@ -73,54 +95,75 @@ const GalleryPage = () => {
           </div>
         </section>
 
-        {/* Gallery Grid */}
-        <section className="py-12 md:py-16">
+        {/* Bento Gallery Grid */}
+        <section className="py-10 md:py-16">
           <div className="container">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 auto-rows-[180px] md:auto-rows-[200px] gap-3 md:gap-4">
               {filteredImages.map((image, index) => (
                 <div
                   key={image.id}
                   onClick={() => setSelectedImage(image)}
-                  className="relative aspect-[4/3] rounded-xl overflow-hidden cursor-pointer group animate-fade-in"
-                  style={{ animationDelay: `${index * 100}ms` }}
+                  className={`relative rounded-2xl overflow-hidden cursor-pointer group animate-fade-in ${getBentoClasses(image.size)}`}
+                  style={{ animationDelay: `${index * 80}ms` }}
                 >
+                  {/* Image */}
                   <img
                     src={image.src}
                     alt={image.title}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    className="w-full h-full object-cover transition-all duration-500 group-hover:brightness-110"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                  <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform">
-                    <p className="text-white font-semibold">{image.title}</p>
+                  
+                  {/* Gradient overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-foreground/70 via-foreground/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-300" />
+                  
+                  {/* Glassmorphism label */}
+                  <div className="absolute bottom-0 left-0 right-0 p-4">
+                    <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-white/10 backdrop-blur-md rounded-lg border border-white/20">
+                      <span className="text-white font-medium text-sm">{image.title}</span>
+                    </div>
                   </div>
+
+                  {/* Hover shine effect */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 </div>
               ))}
             </div>
+
+            {/* Empty state */}
+            {filteredImages.length === 0 && (
+              <div className="text-center py-16">
+                <p className="text-muted-foreground">No photos in this category yet.</p>
+              </div>
+            )}
           </div>
         </section>
 
         {/* Lightbox */}
         {selectedImage && (
           <div
-            className="fixed inset-0 z-50 bg-foreground/90 flex items-center justify-center p-4"
+            className="fixed inset-0 z-50 bg-foreground/95 backdrop-blur-sm flex items-center justify-center p-4"
             onClick={() => setSelectedImage(null)}
           >
-            <div className="relative max-w-5xl w-full animate-scale-in">
+            <div className="relative max-w-5xl w-full animate-scale-in" onClick={(e) => e.stopPropagation()}>
               <img
                 src={selectedImage.src}
                 alt={selectedImage.title}
-                className="w-full h-auto max-h-[80vh] object-contain rounded-lg"
+                className="w-full h-auto max-h-[80vh] object-contain rounded-2xl"
               />
-              <div className="absolute bottom-4 left-4 right-4 text-center">
-                <p className="text-white text-lg font-semibold bg-foreground/50 inline-block px-4 py-2 rounded-lg">
-                  {selectedImage.title}
-                </p>
+              
+              {/* Title label */}
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2">
+                <div className="px-5 py-2.5 bg-white/10 backdrop-blur-md rounded-xl border border-white/20">
+                  <p className="text-white font-semibold">{selectedImage.title}</p>
+                </div>
               </div>
+              
+              {/* Close button */}
               <button
                 onClick={() => setSelectedImage(null)}
-                className="absolute top-4 right-4 w-10 h-10 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center text-white transition-colors"
+                className="absolute top-4 right-4 w-11 h-11 bg-white/10 hover:bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white transition-colors border border-white/20"
               >
-                ✕
+                <X className="h-5 w-5" />
               </button>
             </div>
           </div>
