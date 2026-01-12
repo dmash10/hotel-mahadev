@@ -50,23 +50,17 @@ const GalleryPage = () => {
     : galleryImages.filter(img => img.category === activeCategory);
 
   return (
-    <div className="min-h-screen bg-background pb-20 md:pb-0" style={{ viewTransitionName: "page-content" }}>
+    <div className="min-h-screen bg-background pb-20 md:pb-0">
       <Header />
       <main>
         {/* Hero Section */}
-        <section 
-          className="relative py-16 md:py-20 overflow-hidden"
-          style={{ viewTransitionName: "hero-section" }}
-        >
+        <section className="relative py-16 md:py-20 overflow-hidden">
           {/* Background gradients */}
           <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-gold/5" />
           <div className="absolute top-0 left-1/2 w-96 h-96 bg-primary/10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
           
           <div className="container relative z-10">
-            <div 
-              className="text-center max-w-3xl mx-auto animate-fade-in"
-              style={{ viewTransitionName: "section-header" }}
-            >
+            <div className="text-center max-w-3xl mx-auto animate-fade-in">
               <span className="inline-block px-4 py-1.5 bg-primary/10 text-primary text-sm font-semibold rounded-full mb-4">
                 Photo Gallery
               </span>
@@ -110,10 +104,7 @@ const GalleryPage = () => {
                   key={image.id}
                   onClick={() => setSelectedImage(image)}
                   className={`relative rounded-2xl overflow-hidden cursor-pointer group animate-fade-in ${getBentoClasses(image.size)}`}
-                  style={{ 
-                    animationDelay: `${index * 80}ms`,
-                    viewTransitionName: `gallery-image-${image.id}`
-                  }}
+                  style={{ animationDelay: `${index * 80}ms` }}
                 >
                   {/* Image */}
                   <img

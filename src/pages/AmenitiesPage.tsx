@@ -149,24 +149,18 @@ const allAmenities = [
 
 const AmenitiesPage = () => {
   return (
-    <div className="min-h-screen bg-background pb-20 md:pb-0" style={{ viewTransitionName: "page-content" }}>
+    <div className="min-h-screen bg-background pb-20 md:pb-0">
       <Header />
       <main>
         {/* Hero Section with Gradient Background */}
-        <section 
-          className="relative py-16 md:py-24 overflow-hidden"
-          style={{ viewTransitionName: "hero-section" }}
-        >
+        <section className="relative py-16 md:py-24 overflow-hidden">
           {/* Background gradients */}
           <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-gold/5" />
           <div className="absolute top-0 right-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
           <div className="absolute bottom-0 left-0 w-96 h-96 bg-gold/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
           
           <div className="container relative z-10">
-            <div 
-              className="text-center max-w-3xl mx-auto mb-12 animate-fade-in"
-              style={{ viewTransitionName: "section-header" }}
-            >
+            <div className="text-center max-w-3xl mx-auto mb-12 animate-fade-in">
               <span className="inline-block px-4 py-1.5 bg-primary/10 text-primary text-sm font-semibold rounded-full mb-4">
                 Hotel Amenities
               </span>
@@ -181,15 +175,12 @@ const AmenitiesPage = () => {
 
             {/* Featured Amenities - Large Gradient Cards */}
             <div className="grid md:grid-cols-3 gap-6">
-                {featuredAmenities.map((item, index) => (
-                  <div
-                    key={item.title}
-                    className="group relative animate-fade-in overflow-hidden rounded-2xl"
-                    style={{ 
-                      animationDelay: `${index * 100}ms`,
-                      viewTransitionName: `amenity-card-${index + 1}`
-                    }}
-                  >
+              {featuredAmenities.map((item, index) => (
+                <div
+                  key={item.title}
+                  className="group relative animate-fade-in overflow-hidden rounded-2xl"
+                  style={{ animationDelay: `${index * 100}ms` }}
+                >
                   {/* Gradient Background */}
                   <div className={`absolute inset-0 bg-gradient-to-br ${item.gradient} opacity-90`} />
                   
@@ -232,15 +223,12 @@ const AmenitiesPage = () => {
             </div>
 
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-                {allAmenities.map((item, index) => (
-                  <div
-                    key={item.title}
-                    className="group relative animate-fade-in"
-                    style={{ 
-                      animationDelay: `${index * 40}ms`,
-                      viewTransitionName: `amenity-card-${index + 10}`
-                    }}
-                  >
+              {allAmenities.map((item, index) => (
+                <div
+                  key={item.title}
+                  className="group relative animate-fade-in"
+                  style={{ animationDelay: `${index * 40}ms` }}
+                >
                   {/* Glassmorphism card */}
                   <div className={`relative h-full p-4 rounded-xl bg-gradient-to-br ${item.gradient} backdrop-blur-sm border border-white/20 hover:border-white/40 transition-all duration-300`}>
                     {/* Glass shine effect */}

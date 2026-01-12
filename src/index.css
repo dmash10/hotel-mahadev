@@ -190,140 +190,45 @@
   navigation: auto;
 }
 
-/* Root page transitions */
-::view-transition-old(root),
+/* Root page transitions - smooth crossfade */
+::view-transition-old(root) {
+  animation: page-fade-out 0.25s ease-out forwards;
+}
+
 ::view-transition-new(root) {
-  animation-duration: 0.4s;
-  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  animation: page-fade-in 0.3s ease-out forwards;
 }
 
-/* Page content transitions */
-::view-transition-group(page-content) {
-  animation-duration: 0.5s;
-  animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-/* Hero section transitions */
-::view-transition-group(hero-section) {
-  animation-duration: 0.6s;
-  animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-::view-transition-old(hero-section) {
-  animation: hero-fade-out 0.4s ease-out forwards;
-}
-
-::view-transition-new(hero-section) {
-  animation: hero-fade-in 0.6s ease-out forwards;
-}
-
-/* Hero image specific transition */
-::view-transition-group(hero-image) {
-  animation-duration: 0.7s;
-  animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-/* Section headers */
-::view-transition-group(section-header) {
-  animation-duration: 0.5s;
-  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* Cards and grid items */
-::view-transition-group(card) {
-  animation-duration: 0.45s;
-  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* Navigation header */
-::view-transition-group(site-header) {
-  animation-duration: 0.3s;
-  animation-timing-function: ease-out;
-}
-
-/* Footer */
+/* Persistent elements that should NOT animate between pages */
+::view-transition-group(site-header),
 ::view-transition-group(site-footer) {
-  animation-duration: 0.4s;
-  animation-timing-function: ease-out;
+  animation: none;
 }
 
-/* Room card transitions */
-::view-transition-group(room-image-*) {
-  animation-duration: 0.6s;
-  animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+::view-transition-old(site-header),
+::view-transition-new(site-header),
+::view-transition-old(site-footer),
+::view-transition-new(site-footer) {
+  animation: none;
+  mix-blend-mode: normal;
 }
 
-::view-transition-group(room-title-*) {
-  animation-duration: 0.5s;
-  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-::view-transition-group(room-price-*) {
-  animation-duration: 0.45s;
-  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* Gallery image transitions */
-::view-transition-group(gallery-image-*) {
-  animation-duration: 0.55s;
-  animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-/* Menu/amenity card transitions */
-::view-transition-group(amenity-card-*) {
-  animation-duration: 0.4s;
-  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-::view-transition-group(menu-card-*) {
-  animation-duration: 0.45s;
-  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* Contact card transitions */
-::view-transition-group(contact-card-*) {
-  animation-duration: 0.4s;
-  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* Distance card transitions */
-::view-transition-group(distance-card-*) {
-  animation-duration: 0.35s;
-  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* Smooth crossfade for old/new states */
-::view-transition-old(*) {
-  animation: fade-out-smooth 0.3s ease-out forwards;
-}
-
-::view-transition-new(*) {
-  animation: fade-in-smooth 0.4s ease-out forwards;
-}
-
-@keyframes fade-out-smooth {
+/* Simple page transition keyframes */
+@keyframes page-fade-out {
   from {
     opacity: 1;
-    filter: blur(0);
-    transform: scale(1);
   }
   to {
     opacity: 0;
-    filter: blur(4px);
-    transform: scale(0.98);
   }
 }
 
-@keyframes fade-in-smooth {
+@keyframes page-fade-in {
   from {
     opacity: 0;
-    filter: blur(4px);
-    transform: scale(1.02);
   }
   to {
     opacity: 1;
-    filter: blur(0);
-    transform: scale(1);
   }
 }
 
