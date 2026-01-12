@@ -25,7 +25,7 @@ const HeroSection = () => {
             
             <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-4">
               A Clean, Comfortable Place to Stop Before{" "}
-              <span className="text-primary-light">Kedarnath</span>
+              <span className="text-gold-light">Kedarnath</span>
             </h1>
             
             <p className="text-white/80 text-lg md:text-xl mb-6 max-w-xl">
