@@ -31,56 +31,31 @@ const featuredAmenities = [
   },
 ];
 
-// Alternating colors for variety
+// All amenities use primary blue color
 const allAmenities = [
-  { icon: BedDouble, title: "Premium Beds", description: "Comfortable beds with quality mattresses and fresh linens", color: "primary" },
-  { icon: Droplets, title: "Hot Water 24/7", description: "Geyser in every bathroom for hot water anytime", color: "gold" },
-  { icon: Zap, title: "Power Backup", description: "Generator backup for uninterrupted power", color: "rose" },
-  { icon: Car, title: "Free Parking", description: "Secure parking for cars, jeeps, and taxis", color: "primary" },
-  { icon: UtensilsCrossed, title: "Restaurant", description: "Fresh vegetarian meals, South & North Indian", color: "gold" },
-  { icon: Wifi, title: "Free WiFi", description: "Stay connected throughout your stay", color: "rose" },
-  { icon: Shield, title: "Safe & Secure", description: "24/7 security for peace of mind", color: "primary" },
-  { icon: Users, title: "Family Friendly", description: "Comfortable for families and elderly guests", color: "gold" },
-  { icon: Mountain, title: "Mountain Views", description: "Scenic views of the Himalayan landscape", color: "rose" },
-  { icon: Phone, title: "Room Service", description: "Food delivered to your room", color: "primary" },
-  { icon: Sparkles, title: "Daily Housekeeping", description: "Clean rooms and fresh towels daily", color: "gold" },
-  { icon: Clock, title: "Flexible Timings", description: "Early check-in and late check-out available", color: "rose" },
-  { icon: Tv, title: "Television", description: "Cable TV with major channels", color: "primary" },
-  { icon: Wind, title: "Fresh Mountain Air", description: "Well-ventilated rooms with fresh air", color: "gold" },
-  { icon: Heart, title: "Warm Hospitality", description: "Family-run with personal attention", color: "rose" },
+  { icon: BedDouble, title: "Premium Beds", description: "Comfortable beds with quality mattresses and fresh linens" },
+  { icon: Droplets, title: "Hot Water 24/7", description: "Geyser in every bathroom for hot water anytime" },
+  { icon: Zap, title: "Power Backup", description: "Generator backup for uninterrupted power" },
+  { icon: Car, title: "Free Parking", description: "Secure parking for cars, jeeps, and taxis" },
+  { icon: UtensilsCrossed, title: "Restaurant", description: "Fresh vegetarian meals, South & North Indian" },
+  { icon: Wifi, title: "Free WiFi", description: "Stay connected throughout your stay" },
+  { icon: Shield, title: "Safe & Secure", description: "24/7 security for peace of mind" },
+  { icon: Users, title: "Family Friendly", description: "Comfortable for families and elderly guests" },
+  { icon: Mountain, title: "Mountain Views", description: "Scenic views of the Himalayan landscape" },
+  { icon: Phone, title: "Room Service", description: "Food delivered to your room" },
+  { icon: Sparkles, title: "Daily Housekeeping", description: "Clean rooms and fresh towels daily" },
+  { icon: Clock, title: "Flexible Timings", description: "Early check-in and late check-out available" },
+  { icon: Tv, title: "Television", description: "Cable TV with major channels" },
+  { icon: Wind, title: "Fresh Mountain Air", description: "Well-ventilated rooms with fresh air" },
+  { icon: Heart, title: "Warm Hospitality", description: "Family-run with personal attention" },
 ];
 
-const getColorClasses = (color: string) => {
-  switch (color) {
-    case "primary":
-      return {
-        iconBg: "bg-primary/10",
-        iconColor: "text-primary",
-        border: "border-primary/15",
-        glow: "bg-primary/10",
-      };
-    case "gold":
-      return {
-        iconBg: "bg-gold/10",
-        iconColor: "text-gold",
-        border: "border-gold/15",
-        glow: "bg-gold/10",
-      };
-    case "rose":
-      return {
-        iconBg: "bg-rose-500/10",
-        iconColor: "text-rose-500",
-        border: "border-rose-500/15",
-        glow: "bg-rose-500/10",
-      };
-    default:
-      return {
-        iconBg: "bg-primary/10",
-        iconColor: "text-primary",
-        border: "border-primary/15",
-        glow: "bg-primary/10",
-      };
-  }
+// Primary blue color classes for all amenity cards
+const primaryColorClasses = {
+  iconBg: "bg-primary/10",
+  iconColor: "text-primary",
+  border: "border-primary/15",
+  glow: "bg-primary/10",
 };
 
 const AmenitiesPage = () => {
@@ -167,31 +142,28 @@ const AmenitiesPage = () => {
             </div>
 
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 md:gap-4">
-              {allAmenities.map((item, index) => {
-                const colors = getColorClasses(item.color);
-                return (
-                  <div
-                    key={item.title}
-                    className="group relative animate-fade-in"
-                    style={{ animationDelay: `${index * 40}ms` }}
-                  >
-                    {/* Clean card design with color accents */}
-                    <div className={`relative h-full p-4 md:p-5 rounded-xl md:rounded-2xl bg-card border ${colors.border} shadow-sm transition-all duration-300 overflow-hidden`}>
-                      {/* Subtle corner glow - always visible */}
-                      <div className={`absolute -top-4 -right-4 w-14 h-14 ${colors.glow} rounded-full blur-2xl`} />
-                      
-                      {/* Icon with color */}
-                      <div className={`relative w-10 h-10 md:w-11 md:h-11 rounded-lg md:rounded-xl ${colors.iconBg} flex items-center justify-center mb-3 md:mb-4`}>
-                        <item.icon className={`h-5 w-5 ${colors.iconColor}`} />
-                      </div>
-                      
-                      {/* Content */}
-                      <h3 className="relative font-heading font-bold text-foreground text-sm mb-1">{item.title}</h3>
-                      <p className="relative text-xs text-muted-foreground leading-relaxed line-clamp-2">{item.description}</p>
+              {allAmenities.map((item, index) => (
+                <div
+                  key={item.title}
+                  className="group relative animate-fade-in"
+                  style={{ animationDelay: `${index * 40}ms` }}
+                >
+                  {/* Clean card design with primary blue accent */}
+                  <div className={`relative h-full p-4 md:p-5 rounded-xl md:rounded-2xl bg-card border ${primaryColorClasses.border} shadow-sm transition-all duration-300 overflow-hidden`}>
+                    {/* Subtle corner glow - always visible */}
+                    <div className={`absolute -top-4 -right-4 w-14 h-14 ${primaryColorClasses.glow} rounded-full blur-2xl`} />
+                    
+                    {/* Icon with primary blue color */}
+                    <div className={`relative w-10 h-10 md:w-11 md:h-11 rounded-lg md:rounded-xl ${primaryColorClasses.iconBg} flex items-center justify-center mb-3 md:mb-4`}>
+                      <item.icon className={`h-5 w-5 ${primaryColorClasses.iconColor}`} />
                     </div>
+                    
+                    {/* Content */}
+                    <h3 className="relative font-heading font-bold text-foreground text-sm mb-1">{item.title}</h3>
+                    <p className="relative text-xs text-muted-foreground leading-relaxed line-clamp-2">{item.description}</p>
                   </div>
-                );
-              })}
+                </div>
+              ))}
             </div>
           </div>
         </section>
