@@ -46,14 +46,14 @@ const AmenitiesPage = () => {
       <main>
         {/* Hero Section with Gradient Background */}
         <section className="relative py-16 md:py-24 overflow-hidden">
-          {/* Background gradients */}
-          <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-gold/5" />
-          <div className="absolute top-0 right-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
-          <div className="absolute bottom-0 left-0 w-96 h-96 bg-gold/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
+          {/* Background gradients - gold theme */}
+          <div className="absolute inset-0 bg-gradient-to-br from-gold/5 via-background to-amber-500/5" />
+          <div className="absolute top-0 right-0 w-96 h-96 bg-gold/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
           
           <div className="container relative z-10">
             <div className="text-center max-w-3xl mx-auto mb-12 animate-fade-in">
-              <span className="inline-block px-4 py-1.5 bg-primary/10 text-primary text-sm font-semibold rounded-full mb-4">
+              <span className="inline-block px-4 py-1.5 bg-gold/10 text-gold text-sm font-semibold rounded-full mb-4">
                 Hotel Amenities
               </span>
               <h1 className="font-heading text-3xl md:text-5xl font-bold text-foreground mb-4">
@@ -65,7 +65,7 @@ const AmenitiesPage = () => {
               </p>
             </div>
 
-            {/* Featured Amenities - Large Gradient Cards */}
+            {/* Featured Amenities - Large Gold Gradient Cards */}
             <div className="grid md:grid-cols-3 gap-6">
               {featuredAmenities.map((item, index) => (
                 <div
@@ -73,18 +73,18 @@ const AmenitiesPage = () => {
                   className="group relative animate-fade-in overflow-hidden rounded-2xl"
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
-                  {/* Primary to Gold Gradient Background */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary to-gold/80 opacity-95" />
+                  {/* Gold Gradient Background */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-gold via-amber-500 to-amber-600 opacity-95" />
                   
                   {/* Glass overlay */}
                   <div className="absolute inset-0 bg-white/5 backdrop-blur-[2px]" />
                   
                   {/* Shine effect on hover */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-gold/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   
                   {/* Content */}
                   <div className="relative p-6 md:p-8 text-white">
-                    <div className="w-14 h-14 rounded-2xl bg-white/15 backdrop-blur-sm flex items-center justify-center mb-5 border border-white/20 group-hover:bg-gold/20 transition-colors duration-300">
+                    <div className="w-14 h-14 rounded-2xl bg-white/15 backdrop-blur-sm flex items-center justify-center mb-5 border border-white/20 group-hover:bg-white/25 transition-colors duration-300">
                       <item.icon className="h-7 w-7" />
                     </div>
                     <h3 className="font-heading text-xl md:text-2xl font-bold mb-3">{item.title}</h3>
@@ -98,10 +98,10 @@ const AmenitiesPage = () => {
 
         {/* All Amenities Grid - Glassmorphism Cards */}
         <section className="py-12 md:py-16 relative">
-          {/* Subtle background decoration */}
+          {/* Subtle background decoration - gold theme */}
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            <div className="absolute top-1/4 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl" />
-            <div className="absolute bottom-1/4 left-0 w-64 h-64 bg-gold/5 rounded-full blur-3xl" />
+            <div className="absolute top-1/4 right-0 w-64 h-64 bg-gold/5 rounded-full blur-3xl" />
+            <div className="absolute bottom-1/4 left-0 w-64 h-64 bg-amber-500/5 rounded-full blur-3xl" />
           </div>
 
           <div className="container relative z-10">
@@ -121,14 +121,14 @@ const AmenitiesPage = () => {
                   className="group relative animate-fade-in"
                   style={{ animationDelay: `${index * 40}ms` }}
                 >
-                  {/* Card with brand colors */}
-                  <div className="relative h-full p-4 rounded-xl bg-primary/5 backdrop-blur-sm border border-primary/10 hover:border-gold/30 hover:bg-primary/10 transition-all duration-300">
+                  {/* Card with gold theme */}
+                  <div className="relative h-full p-4 rounded-xl bg-gold/5 backdrop-blur-sm border border-gold/15 hover:border-gold/40 hover:bg-gold/10 transition-all duration-300">
                     {/* Subtle shine effect */}
-                    <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-gold/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-gold/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     
                     {/* Icon */}
-                    <div className="relative w-10 h-10 rounded-lg bg-primary/10 backdrop-blur-sm flex items-center justify-center mb-3 border border-primary/20 group-hover:bg-gold/10 group-hover:border-gold/30 transition-colors duration-300">
-                      <item.icon className="h-5 w-5 text-primary group-hover:text-gold transition-colors duration-300" />
+                    <div className="relative w-10 h-10 rounded-lg bg-gold/10 backdrop-blur-sm flex items-center justify-center mb-3 border border-gold/20 group-hover:bg-gold/20 group-hover:border-gold/40 transition-colors duration-300">
+                      <item.icon className="h-5 w-5 text-gold transition-colors duration-300" />
                     </div>
                     
                     {/* Content */}

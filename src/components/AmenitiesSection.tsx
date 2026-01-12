@@ -48,13 +48,13 @@ const AmenitiesSection = () => {
     <section className="py-16 md:py-20 bg-background relative overflow-hidden">
       {/* Background decoration */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-primary/5 rounded-full blur-3xl" />
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gold/5 rounded-full blur-3xl" />
         <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gold/5 rounded-full blur-3xl" />
       </div>
 
       <div className="container relative z-10">
         <div className="text-center mb-12 animate-fade-in">
-          <span className="text-primary font-semibold text-sm uppercase tracking-wider">Amenities</span>
+          <span className="text-gold font-semibold text-sm uppercase tracking-wider">Amenities</span>
           <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mt-2 mb-4">
             Everything You Need for a Good Rest
           </h2>
@@ -70,14 +70,14 @@ const AmenitiesSection = () => {
               className="group relative animate-fade-in"
               style={{ animationDelay: `${index * 75}ms` }}
             >
-              {/* Card with brand colors */}
-              <div className="relative h-full p-5 md:p-6 rounded-2xl bg-primary/5 backdrop-blur-sm border border-primary/10 hover:border-gold/30 hover:bg-primary/10 transition-all duration-300">
+              {/* Card with gold theme */}
+              <div className="relative h-full p-5 md:p-6 rounded-2xl bg-gold/5 backdrop-blur-sm border border-gold/15 hover:border-gold/40 hover:bg-gold/10 transition-all duration-300">
                 {/* Subtle shine effect */}
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-gold/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-gold/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 
                 {/* Icon */}
-                <div className="relative w-12 h-12 rounded-xl bg-primary/10 backdrop-blur-sm flex items-center justify-center mb-4 border border-primary/20 group-hover:bg-gold/10 group-hover:border-gold/30 transition-colors duration-300">
-                  <item.icon className="h-6 w-6 text-primary group-hover:text-gold transition-colors duration-300" />
+                <div className="relative w-12 h-12 rounded-xl bg-gold/10 backdrop-blur-sm flex items-center justify-center mb-4 border border-gold/20 group-hover:bg-gold/20 group-hover:border-gold/40 transition-colors duration-300">
+                  <item.icon className="h-6 w-6 text-gold transition-colors duration-300" />
                 </div>
                 
                 {/* Content */}
