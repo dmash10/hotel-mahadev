@@ -8,143 +8,35 @@ const featuredAmenities = [
     icon: Droplets,
     title: "24/7 Hot Water",
     description: "Every room has a geyser for hot water anytime you need it. Essential after a long journey in the mountains.",
-    gradient: "from-cyan-500 to-teal-500",
   },
   {
     icon: UtensilsCrossed,
     title: "In-house Restaurant",
     description: "Fresh vegetarian meals including South Indian and North Indian cuisine. No need to step out after a tiring day.",
-    gradient: "from-orange-500 to-red-500",
   },
   {
     icon: Car,
     title: "Free Parking",
     description: "Secure parking space for cars, jeeps, and taxis. Well-lit and monitored for your peace of mind.",
-    gradient: "from-slate-500 to-gray-600",
   },
 ];
 
 const allAmenities = [
-  {
-    icon: BedDouble,
-    title: "Premium Beds",
-    description: "Comfortable beds with quality mattresses and fresh linens",
-    gradient: "from-blue-500/20 to-indigo-500/20",
-    iconBg: "bg-blue-500/20",
-    iconColor: "text-blue-600",
-  },
-  {
-    icon: Droplets,
-    title: "Hot Water 24/7",
-    description: "Geyser in every bathroom for hot water anytime",
-    gradient: "from-cyan-500/20 to-teal-500/20",
-    iconBg: "bg-cyan-500/20",
-    iconColor: "text-cyan-600",
-  },
-  {
-    icon: Zap,
-    title: "Power Backup",
-    description: "Generator backup for uninterrupted power",
-    gradient: "from-amber-500/20 to-yellow-500/20",
-    iconBg: "bg-amber-500/20",
-    iconColor: "text-amber-600",
-  },
-  {
-    icon: Car,
-    title: "Free Parking",
-    description: "Secure parking for cars, jeeps, and taxis",
-    gradient: "from-slate-500/20 to-gray-500/20",
-    iconBg: "bg-slate-500/20",
-    iconColor: "text-slate-600",
-  },
-  {
-    icon: UtensilsCrossed,
-    title: "Restaurant",
-    description: "Fresh vegetarian meals, South & North Indian",
-    gradient: "from-orange-500/20 to-red-500/20",
-    iconBg: "bg-orange-500/20",
-    iconColor: "text-orange-600",
-  },
-  {
-    icon: Wifi,
-    title: "Free WiFi",
-    description: "Stay connected throughout your stay",
-    gradient: "from-purple-500/20 to-violet-500/20",
-    iconBg: "bg-purple-500/20",
-    iconColor: "text-purple-600",
-  },
-  {
-    icon: Shield,
-    title: "Safe & Secure",
-    description: "24/7 security for peace of mind",
-    gradient: "from-emerald-500/20 to-green-500/20",
-    iconBg: "bg-emerald-500/20",
-    iconColor: "text-emerald-600",
-  },
-  {
-    icon: Users,
-    title: "Family Friendly",
-    description: "Comfortable for families and elderly guests",
-    gradient: "from-pink-500/20 to-rose-500/20",
-    iconBg: "bg-pink-500/20",
-    iconColor: "text-pink-600",
-  },
-  {
-    icon: Mountain,
-    title: "Mountain Views",
-    description: "Scenic views of the Himalayan landscape",
-    gradient: "from-sky-500/20 to-blue-500/20",
-    iconBg: "bg-sky-500/20",
-    iconColor: "text-sky-600",
-  },
-  {
-    icon: Phone,
-    title: "Room Service",
-    description: "Food delivered to your room",
-    gradient: "from-indigo-500/20 to-purple-500/20",
-    iconBg: "bg-indigo-500/20",
-    iconColor: "text-indigo-600",
-  },
-  {
-    icon: Sparkles,
-    title: "Daily Housekeeping",
-    description: "Clean rooms and fresh towels daily",
-    gradient: "from-teal-500/20 to-emerald-500/20",
-    iconBg: "bg-teal-500/20",
-    iconColor: "text-teal-600",
-  },
-  {
-    icon: Clock,
-    title: "Flexible Timings",
-    description: "Early check-in and late check-out available",
-    gradient: "from-violet-500/20 to-purple-500/20",
-    iconBg: "bg-violet-500/20",
-    iconColor: "text-violet-600",
-  },
-  {
-    icon: Tv,
-    title: "Television",
-    description: "Cable TV with major channels",
-    gradient: "from-gray-500/20 to-slate-500/20",
-    iconBg: "bg-gray-500/20",
-    iconColor: "text-gray-600",
-  },
-  {
-    icon: Wind,
-    title: "Fresh Mountain Air",
-    description: "Well-ventilated rooms with fresh air",
-    gradient: "from-cyan-500/20 to-sky-500/20",
-    iconBg: "bg-cyan-500/20",
-    iconColor: "text-cyan-600",
-  },
-  {
-    icon: Heart,
-    title: "Warm Hospitality",
-    description: "Family-run with personal attention",
-    gradient: "from-rose-500/20 to-pink-500/20",
-    iconBg: "bg-rose-500/20",
-    iconColor: "text-rose-600",
-  },
+  { icon: BedDouble, title: "Premium Beds", description: "Comfortable beds with quality mattresses and fresh linens" },
+  { icon: Droplets, title: "Hot Water 24/7", description: "Geyser in every bathroom for hot water anytime" },
+  { icon: Zap, title: "Power Backup", description: "Generator backup for uninterrupted power" },
+  { icon: Car, title: "Free Parking", description: "Secure parking for cars, jeeps, and taxis" },
+  { icon: UtensilsCrossed, title: "Restaurant", description: "Fresh vegetarian meals, South & North Indian" },
+  { icon: Wifi, title: "Free WiFi", description: "Stay connected throughout your stay" },
+  { icon: Shield, title: "Safe & Secure", description: "24/7 security for peace of mind" },
+  { icon: Users, title: "Family Friendly", description: "Comfortable for families and elderly guests" },
+  { icon: Mountain, title: "Mountain Views", description: "Scenic views of the Himalayan landscape" },
+  { icon: Phone, title: "Room Service", description: "Food delivered to your room" },
+  { icon: Sparkles, title: "Daily Housekeeping", description: "Clean rooms and fresh towels daily" },
+  { icon: Clock, title: "Flexible Timings", description: "Early check-in and late check-out available" },
+  { icon: Tv, title: "Television", description: "Cable TV with major channels" },
+  { icon: Wind, title: "Fresh Mountain Air", description: "Well-ventilated rooms with fresh air" },
+  { icon: Heart, title: "Warm Hospitality", description: "Family-run with personal attention" },
 ];
 
 const AmenitiesPage = () => {
@@ -181,22 +73,22 @@ const AmenitiesPage = () => {
                   className="group relative animate-fade-in overflow-hidden rounded-2xl"
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
-                  {/* Gradient Background */}
-                  <div className={`absolute inset-0 bg-gradient-to-br ${item.gradient} opacity-90`} />
+                  {/* Primary to Gold Gradient Background */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary to-gold/80 opacity-95" />
                   
                   {/* Glass overlay */}
-                  <div className="absolute inset-0 bg-white/10 backdrop-blur-[2px]" />
+                  <div className="absolute inset-0 bg-white/5 backdrop-blur-[2px]" />
                   
                   {/* Shine effect on hover */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  <div className="absolute inset-0 bg-gradient-to-br from-gold/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   
                   {/* Content */}
                   <div className="relative p-6 md:p-8 text-white">
-                    <div className="w-14 h-14 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center mb-5 border border-white/20">
+                    <div className="w-14 h-14 rounded-2xl bg-white/15 backdrop-blur-sm flex items-center justify-center mb-5 border border-white/20 group-hover:bg-gold/20 transition-colors duration-300">
                       <item.icon className="h-7 w-7" />
                     </div>
                     <h3 className="font-heading text-xl md:text-2xl font-bold mb-3">{item.title}</h3>
-                    <p className="text-white/80 leading-relaxed">{item.description}</p>
+                    <p className="text-white/85 leading-relaxed">{item.description}</p>
                   </div>
                 </div>
               ))}
@@ -229,14 +121,14 @@ const AmenitiesPage = () => {
                   className="group relative animate-fade-in"
                   style={{ animationDelay: `${index * 40}ms` }}
                 >
-                  {/* Glassmorphism card */}
-                  <div className={`relative h-full p-4 rounded-xl bg-gradient-to-br ${item.gradient} backdrop-blur-sm border border-white/20 hover:border-white/40 transition-all duration-300`}>
-                    {/* Glass shine effect */}
-                    <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-white/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  {/* Card with brand colors */}
+                  <div className="relative h-full p-4 rounded-xl bg-primary/5 backdrop-blur-sm border border-primary/10 hover:border-gold/30 hover:bg-primary/10 transition-all duration-300">
+                    {/* Subtle shine effect */}
+                    <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-gold/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     
                     {/* Icon */}
-                    <div className={`relative w-10 h-10 rounded-lg ${item.iconBg} backdrop-blur-sm flex items-center justify-center mb-3 border border-white/10`}>
-                      <item.icon className={`h-5 w-5 ${item.iconColor}`} />
+                    <div className="relative w-10 h-10 rounded-lg bg-primary/10 backdrop-blur-sm flex items-center justify-center mb-3 border border-primary/20 group-hover:bg-gold/10 group-hover:border-gold/30 transition-colors duration-300">
+                      <item.icon className="h-5 w-5 text-primary group-hover:text-gold transition-colors duration-300" />
                     </div>
                     
                     {/* Content */}
