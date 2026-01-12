@@ -29,9 +29,14 @@
     --muted: 220 20% 96%;
     --muted-foreground: 220 10% 45%;
     
-    /* Accent - Light Blue */
-    --accent: 220 60% 96%;
-    --accent-foreground: 214 100% 25%;
+    /* Accent - Gold */
+    --accent: 45 93% 47%;
+    --accent-foreground: 30 80% 15%;
+    
+    /* Gold Highlight */
+    --gold: 45 93% 47%;
+    --gold-light: 48 96% 53%;
+    --gold-foreground: 30 80% 15%;
     
     /* Functional Colors */
     --success: 142 76% 36%;
@@ -94,8 +99,12 @@
     --muted: 220 25% 18%;
     --muted-foreground: 220 15% 60%;
     
-    --accent: 220 25% 18%;
-    --accent-foreground: 0 0% 95%;
+    --accent: 45 85% 50%;
+    --accent-foreground: 30 80% 10%;
+    
+    --gold: 45 85% 50%;
+    --gold-light: 48 90% 55%;
+    --gold-foreground: 30 80% 10%;
     
     --success: 142 70% 45%;
     --success-foreground: 0 0% 100%;

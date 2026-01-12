@@ -25,6 +25,8 @@ const buttonVariants = cva(
         price: "gradient-price text-white shadow-md hover:shadow-lg font-bold",
         // Success/Green button
         success: "bg-success text-success-foreground hover:bg-success/90 shadow-md",
+        // Gold accent button
+        gold: "bg-gold text-gold-foreground hover:bg-gold-light shadow-md hover:shadow-lg font-bold",
       },
       size: {
         default: "h-10 px-5 py-2",
