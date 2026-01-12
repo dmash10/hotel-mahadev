@@ -70,14 +70,14 @@ const AmenitiesSection = () => {
               className="group relative animate-fade-in"
               style={{ animationDelay: `${index * 75}ms` }}
             >
-              {/* Card with gold theme */}
-              <div className="relative h-full p-5 md:p-6 rounded-2xl bg-gold/5 backdrop-blur-sm border border-gold/15 hover:border-gold/40 hover:bg-gold/10 transition-all duration-300">
-                {/* Subtle shine effect */}
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-gold/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              {/* Refined card design */}
+              <div className="relative h-full p-5 md:p-6 rounded-2xl bg-gradient-to-br from-white to-amber-50/50 dark:from-card dark:to-amber-950/10 border border-gold/10 hover:border-gold/30 transition-all duration-300 overflow-hidden">
+                {/* Subtle corner decoration */}
+                <div className="absolute -top-4 -right-4 w-16 h-16 bg-gold/10 rounded-full blur-2xl group-hover:bg-gold/20 transition-colors duration-300" />
                 
-                {/* Icon */}
-                <div className="relative w-12 h-12 rounded-xl bg-gold/10 backdrop-blur-sm flex items-center justify-center mb-4 border border-gold/20 group-hover:bg-gold/20 group-hover:border-gold/40 transition-colors duration-300">
-                  <item.icon className="h-6 w-6 text-gold transition-colors duration-300" />
+                {/* Icon with gradient background */}
+                <div className="relative w-12 h-12 rounded-xl bg-gradient-to-br from-gold/15 to-amber-500/10 flex items-center justify-center mb-4 border border-gold/20 group-hover:from-gold/25 group-hover:to-amber-500/20 transition-all duration-300">
+                  <item.icon className="h-6 w-6 text-gold" />
                 </div>
                 
                 {/* Content */}
