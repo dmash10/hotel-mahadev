@@ -123,31 +123,48 @@ const amenityIcons: Record<string, React.ElementType> = {
 };
 
 const RoomCard = ({ room, onClick }: { room: typeof rooms[0]; onClick: () => void }) => {
+  const handleClick = () => {
+    // Use View Transitions API if available
+    if (document.startViewTransition) {
+      document.startViewTransition(() => {
+        onClick();
+      });
+    } else {
+      onClick();
+    }
+  };
+
   return (
     <div
-      onClick={onClick}
+      onClick={handleClick}
       className="group relative cursor-pointer"
+      style={{ viewTransitionName: `room-card-${room.id}` }}
     >
-      {/* Glassmorphism Card */}
-      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-card/80 via-card/60 to-card/40 backdrop-blur-xl border border-white/20 shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-[1.02] hover:border-primary/30">
-        {/* Gradient Overlay for depth */}
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+      {/* Card Container - No scale/shadow on hover, smooth border transition */}
+      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-card via-card/95 to-card/90 border border-border/50 transition-[border-color] duration-700 ease-out group-hover:border-primary/40">
+        {/* Animated gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/0 via-primary/0 to-primary/0 group-hover:from-primary/3 group-hover:via-transparent group-hover:to-accent/3 transition-all duration-700 ease-out" />
         
         <div className="flex flex-col md:flex-row">
-          {/* Image Section */}
+          {/* Image Section with Parallax Effect */}
           <div className="relative w-full md:w-56 lg:w-64 h-56 md:h-auto flex-shrink-0 overflow-hidden">
-            <img
-              src={room.images[0]}
-              alt={room.name}
-              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-            />
-            {/* Gradient Overlay on Image */}
-            <div className="absolute inset-0 bg-gradient-to-t from-foreground/40 via-transparent to-transparent md:bg-gradient-to-r md:from-transparent md:to-card/20" />
+            {/* Parallax Image - translateY on hover instead of scale */}
+            <div className="absolute inset-0 transition-transform duration-700 ease-out group-hover:-translate-y-2">
+              <img
+                src={room.images[0]}
+                alt={room.name}
+                className="w-full h-[110%] object-cover"
+                style={{ viewTransitionName: `room-image-${room.id}` }}
+              />
+            </div>
             
-            {/* Badges */}
+            {/* Gradient Overlay - Animated opacity */}
+            <div className="absolute inset-0 bg-gradient-to-t from-foreground/50 via-foreground/10 to-transparent md:bg-gradient-to-r md:from-transparent md:via-transparent md:to-card/40 opacity-70 group-hover:opacity-90 transition-opacity duration-700" />
+            
+            {/* Badges with smooth fade */}
             <div className="absolute top-4 left-4 flex flex-col gap-2">
               {room.available && (
-                <span className="inline-flex items-center gap-1.5 bg-success/90 backdrop-blur-sm text-success-foreground px-3 py-1.5 rounded-full text-xs font-bold shadow-lg">
+                <span className="inline-flex items-center gap-1.5 bg-success/90 backdrop-blur-sm text-success-foreground px-3 py-1.5 rounded-full text-xs font-bold opacity-90 group-hover:opacity-100 transition-opacity duration-500">
                   <span className="w-1.5 h-1.5 bg-success-foreground rounded-full animate-pulse" />
                   Available Now
                 </span>
@@ -156,17 +173,14 @@ const RoomCard = ({ room, onClick }: { room: typeof rooms[0]; onClick: () => voi
             
             {/* Discount Badge */}
             <div className="absolute top-4 right-4">
-              <div className="relative">
-                <div className="absolute inset-0 bg-destructive rounded-full blur-md opacity-50" />
-                <span className="relative bg-gradient-to-r from-destructive to-destructive/80 text-destructive-foreground px-3 py-1.5 rounded-full text-xs font-bold shadow-lg">
-                  {room.discount}% OFF
-                </span>
-              </div>
+              <span className="bg-gradient-to-r from-destructive to-destructive/90 text-destructive-foreground px-3 py-1.5 rounded-full text-xs font-bold">
+                {room.discount}% OFF
+              </span>
             </div>
 
             {/* Room Capacity Badge - Mobile Only */}
             <div className="absolute bottom-4 left-4 md:hidden">
-              <span className="inline-flex items-center gap-1.5 bg-background/80 backdrop-blur-sm text-foreground px-3 py-1.5 rounded-full text-sm font-medium shadow-lg">
+              <span className="inline-flex items-center gap-1.5 bg-background/80 backdrop-blur-sm text-foreground px-3 py-1.5 rounded-full text-sm font-medium">
                 <Users className="h-4 w-4 text-primary" />
                 {room.maxGuests} Guests
               </span>
@@ -175,10 +189,13 @@ const RoomCard = ({ room, onClick }: { room: typeof rooms[0]; onClick: () => voi
 
           {/* Content Section */}
           <div className="relative flex-1 p-5 md:p-6 flex flex-col">
-            {/* Header */}
+            {/* Header with smooth color transition */}
             <div className="flex items-start justify-between gap-4 mb-4">
               <div>
-                <h3 className="font-heading text-xl md:text-2xl font-bold text-foreground group-hover:text-primary transition-colors duration-300">
+                <h3 
+                  className="font-heading text-xl md:text-2xl font-bold text-foreground transition-colors duration-500 ease-out group-hover:text-primary"
+                  style={{ viewTransitionName: `room-title-${room.id}` }}
+                >
                   {room.name}
                 </h3>
                 <p className="text-sm text-muted-foreground mt-1 flex items-center gap-2">
@@ -187,51 +204,57 @@ const RoomCard = ({ room, onClick }: { room: typeof rooms[0]; onClick: () => voi
                     Up to {room.maxGuests} guests
                   </span>
                   <span className="hidden md:inline-block w-1 h-1 rounded-full bg-muted-foreground/50" />
-                  <span className="text-primary font-medium">{room.shortDesc}</span>
+                  <span className="text-primary/80 font-medium transition-colors duration-500 group-hover:text-primary">{room.shortDesc}</span>
                 </p>
               </div>
             </div>
 
-            {/* Price Section */}
+            {/* Price Section with subtle background animation */}
             <div className="mb-5">
-              <div className="inline-flex items-center gap-3 bg-gradient-to-r from-muted/80 to-muted/40 backdrop-blur-sm rounded-xl px-4 py-3 border border-white/10">
+              <div className="inline-flex items-center gap-3 bg-muted/50 rounded-xl px-4 py-3 border border-border/30 transition-[background-color,border-color] duration-700 group-hover:bg-muted/70 group-hover:border-border/50">
                 <div className="flex flex-col">
                   <span className="text-xs text-muted-foreground">Was</span>
-                  <span className="text-base text-destructive line-through font-medium">₹{room.fakePrice.toLocaleString()}</span>
+                  <span className="text-base text-destructive/80 line-through font-medium">₹{room.fakePrice.toLocaleString()}</span>
                 </div>
-                <div className="w-px h-10 bg-border" />
+                <div className="w-px h-10 bg-border/50" />
                 <div className="flex flex-col">
                   <span className="text-xs text-muted-foreground">Now</span>
-                  <span className="text-2xl font-bold text-success">₹{room.realPrice.toLocaleString()}</span>
+                  <span 
+                    className="text-2xl font-bold text-success"
+                    style={{ viewTransitionName: `room-price-${room.id}` }}
+                  >
+                    ₹{room.realPrice.toLocaleString()}
+                  </span>
                 </div>
                 <span className="text-xs text-muted-foreground self-end pb-1">/night</span>
               </div>
             </div>
 
-            {/* Amenities */}
+            {/* Amenities with staggered hover reveal */}
             <div className="flex flex-wrap gap-2 mb-5">
-              {room.amenities.map((amenity) => {
+              {room.amenities.map((amenity, idx) => {
                 const Icon = amenityIcons[amenity] || Check;
                 return (
                   <span
                     key={amenity}
-                    className="inline-flex items-center gap-1.5 text-xs font-medium text-muted-foreground bg-gradient-to-r from-muted/60 to-muted/30 backdrop-blur-sm px-3 py-1.5 rounded-full border border-white/10 hover:border-primary/20 hover:text-foreground transition-colors"
+                    className="inline-flex items-center gap-1.5 text-xs font-medium text-muted-foreground bg-muted/40 px-3 py-1.5 rounded-full border border-border/20 transition-all duration-500 ease-out group-hover:bg-muted/60 group-hover:border-border/40 group-hover:text-foreground"
+                    style={{ transitionDelay: `${idx * 30}ms` }}
                   >
-                    <Icon className="h-3.5 w-3.5 text-primary" />
+                    <Icon className="h-3.5 w-3.5 text-primary transition-transform duration-500 group-hover:rotate-6" />
                     {amenity}
                   </span>
                 );
               })}
             </div>
 
-            {/* CTA */}
+            {/* CTA with smooth arrow animation */}
             <div className="mt-auto flex items-center justify-between">
-              <span className="text-sm text-muted-foreground">
-                Click to view details →
+              <span className="text-sm text-muted-foreground opacity-60 group-hover:opacity-100 transition-opacity duration-500">
+                Click to view details
               </span>
-              <div className="flex items-center gap-2 text-primary font-semibold text-sm group-hover:gap-3 transition-all duration-300">
+              <div className="flex items-center gap-2 text-primary font-semibold text-sm transition-all duration-500 ease-out group-hover:gap-3">
                 View Room
-                <ArrowLeft className="h-4 w-4 rotate-180" />
+                <ArrowLeft className="h-4 w-4 rotate-180 transition-transform duration-500 ease-out group-hover:translate-x-1" />
               </div>
             </div>
           </div>
