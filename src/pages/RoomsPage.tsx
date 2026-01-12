@@ -126,69 +126,113 @@ const RoomCard = ({ room, onClick }: { room: typeof rooms[0]; onClick: () => voi
   return (
     <div
       onClick={onClick}
-      className="bg-card rounded-xl border border-border hover:border-primary/30 transition-colors duration-300 cursor-pointer group overflow-hidden"
+      className="group relative cursor-pointer"
     >
-      <div className="flex flex-col sm:flex-row">
-        {/* Image */}
-        <div className="relative w-full sm:w-40 md:w-48 h-40 sm:h-auto flex-shrink-0 overflow-hidden">
-          <img
-            src={room.images[0]}
-            alt={room.name}
-            className="w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-95"
-          />
-          {room.available && (
-            <span className="absolute top-2 left-2 bg-success text-success-foreground px-2 py-0.5 rounded text-xs font-semibold">
-              Available
-            </span>
-          )}
-          <div className="absolute top-2 right-2 bg-destructive text-destructive-foreground px-2 py-0.5 rounded text-xs font-bold">
-            {room.discount}% OFF
-          </div>
-        </div>
-
-        {/* Content */}
-        <div className="flex-1 p-4">
-          <div className="flex flex-col h-full">
-            {/* Header */}
-            <div className="flex items-start justify-between gap-2 mb-2">
-              <div>
-                <h3 className="font-heading text-base md:text-lg font-bold text-foreground group-hover:text-primary transition-colors">
-                  {room.name}
-                </h3>
-                <p className="text-xs text-muted-foreground flex items-center gap-1">
-                  <Users className="h-3 w-3" /> Up to {room.maxGuests} guests
-                </p>
-              </div>
-              
-              {/* Price */}
-              <div className="text-right flex-shrink-0">
-                <div className="flex items-center gap-2">
-                  <span className="text-sm text-destructive line-through">₹{room.fakePrice.toLocaleString()}</span>
-                  <span className="text-lg font-bold text-success">₹{room.realPrice.toLocaleString()}</span>
-                </div>
-                <p className="text-xs text-muted-foreground">per night</p>
+      {/* Glassmorphism Card */}
+      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-card/80 via-card/60 to-card/40 backdrop-blur-xl border border-white/20 shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-[1.02] hover:border-primary/30">
+        {/* Gradient Overlay for depth */}
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+        
+        <div className="flex flex-col md:flex-row">
+          {/* Image Section */}
+          <div className="relative w-full md:w-56 lg:w-64 h-56 md:h-auto flex-shrink-0 overflow-hidden">
+            <img
+              src={room.images[0]}
+              alt={room.name}
+              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+            />
+            {/* Gradient Overlay on Image */}
+            <div className="absolute inset-0 bg-gradient-to-t from-foreground/40 via-transparent to-transparent md:bg-gradient-to-r md:from-transparent md:to-card/20" />
+            
+            {/* Badges */}
+            <div className="absolute top-4 left-4 flex flex-col gap-2">
+              {room.available && (
+                <span className="inline-flex items-center gap-1.5 bg-success/90 backdrop-blur-sm text-success-foreground px-3 py-1.5 rounded-full text-xs font-bold shadow-lg">
+                  <span className="w-1.5 h-1.5 bg-success-foreground rounded-full animate-pulse" />
+                  Available Now
+                </span>
+              )}
+            </div>
+            
+            {/* Discount Badge */}
+            <div className="absolute top-4 right-4">
+              <div className="relative">
+                <div className="absolute inset-0 bg-destructive rounded-full blur-md opacity-50" />
+                <span className="relative bg-gradient-to-r from-destructive to-destructive/80 text-destructive-foreground px-3 py-1.5 rounded-full text-xs font-bold shadow-lg">
+                  {room.discount}% OFF
+                </span>
               </div>
             </div>
 
-            {/* Description */}
-            <p className="text-sm text-muted-foreground mb-3 line-clamp-2">{room.shortDesc}</p>
+            {/* Room Capacity Badge - Mobile Only */}
+            <div className="absolute bottom-4 left-4 md:hidden">
+              <span className="inline-flex items-center gap-1.5 bg-background/80 backdrop-blur-sm text-foreground px-3 py-1.5 rounded-full text-sm font-medium shadow-lg">
+                <Users className="h-4 w-4 text-primary" />
+                {room.maxGuests} Guests
+              </span>
+            </div>
+          </div>
+
+          {/* Content Section */}
+          <div className="relative flex-1 p-5 md:p-6 flex flex-col">
+            {/* Header */}
+            <div className="flex items-start justify-between gap-4 mb-4">
+              <div>
+                <h3 className="font-heading text-xl md:text-2xl font-bold text-foreground group-hover:text-primary transition-colors duration-300">
+                  {room.name}
+                </h3>
+                <p className="text-sm text-muted-foreground mt-1 flex items-center gap-2">
+                  <span className="hidden md:inline-flex items-center gap-1">
+                    <Users className="h-4 w-4 text-primary" />
+                    Up to {room.maxGuests} guests
+                  </span>
+                  <span className="hidden md:inline-block w-1 h-1 rounded-full bg-muted-foreground/50" />
+                  <span className="text-primary font-medium">{room.shortDesc}</span>
+                </p>
+              </div>
+            </div>
+
+            {/* Price Section */}
+            <div className="mb-5">
+              <div className="inline-flex items-center gap-3 bg-gradient-to-r from-muted/80 to-muted/40 backdrop-blur-sm rounded-xl px-4 py-3 border border-white/10">
+                <div className="flex flex-col">
+                  <span className="text-xs text-muted-foreground">Was</span>
+                  <span className="text-base text-destructive line-through font-medium">₹{room.fakePrice.toLocaleString()}</span>
+                </div>
+                <div className="w-px h-10 bg-border" />
+                <div className="flex flex-col">
+                  <span className="text-xs text-muted-foreground">Now</span>
+                  <span className="text-2xl font-bold text-success">₹{room.realPrice.toLocaleString()}</span>
+                </div>
+                <span className="text-xs text-muted-foreground self-end pb-1">/night</span>
+              </div>
+            </div>
 
             {/* Amenities */}
-            <div className="flex flex-wrap gap-2 mt-auto">
-              {room.amenities.slice(0, 4).map((amenity) => {
+            <div className="flex flex-wrap gap-2 mb-5">
+              {room.amenities.map((amenity) => {
                 const Icon = amenityIcons[amenity] || Check;
                 return (
-                  <span key={amenity} className="flex items-center gap-1 text-xs text-muted-foreground bg-muted px-2 py-1 rounded">
-                    <Icon className="h-3 w-3 text-primary" />
+                  <span
+                    key={amenity}
+                    className="inline-flex items-center gap-1.5 text-xs font-medium text-muted-foreground bg-gradient-to-r from-muted/60 to-muted/30 backdrop-blur-sm px-3 py-1.5 rounded-full border border-white/10 hover:border-primary/20 hover:text-foreground transition-colors"
+                  >
+                    <Icon className="h-3.5 w-3.5 text-primary" />
                     {amenity}
                   </span>
                 );
               })}
-              {room.amenities.length > 4 && (
-                <span className="text-xs text-primary font-medium px-2 py-1">
-                  +{room.amenities.length - 4} more
-                </span>
-              )}
+            </div>
+
+            {/* CTA */}
+            <div className="mt-auto flex items-center justify-between">
+              <span className="text-sm text-muted-foreground">
+                Click to view details →
+              </span>
+              <div className="flex items-center gap-2 text-primary font-semibold text-sm group-hover:gap-3 transition-all duration-300">
+                View Room
+                <ArrowLeft className="h-4 w-4 rotate-180" />
+              </div>
             </div>
           </div>
         </div>
