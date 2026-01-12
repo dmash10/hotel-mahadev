@@ -15,14 +15,14 @@ const StickyMobileCTA = () => {
       <div className="flex gap-3">
         <button
           onClick={handleCall}
-          className="flex-1 flex items-center justify-center gap-2 h-12 rounded-xl bg-primary text-primary-foreground font-semibold shadow-md active:scale-[0.98] transition-transform"
+          className="flex-1 flex items-center justify-center gap-2 h-12 rounded-xl bg-primary text-primary-foreground font-semibold transition-all duration-300 hover:brightness-110"
         >
           <Phone className="h-5 w-5" />
           Call Now
         </button>
         <button
           onClick={handleWhatsApp}
-          className="flex-1 flex items-center justify-center gap-2 h-12 rounded-xl bg-[#25D366] text-white font-semibold shadow-md active:scale-[0.98] transition-transform"
+          className="flex-1 flex items-center justify-center gap-2 h-12 rounded-xl bg-[#25D366] text-white font-semibold transition-all duration-300 hover:brightness-110"
         >
           <MessageCircle className="h-5 w-5" />
           WhatsApp

@@ -61,10 +61,10 @@ const AmenitiesSection = () => {
           {amenities.map((item, index) => (
             <div
               key={item.title}
-              className="bg-card p-5 md:p-6 rounded-xl border border-border hover:shadow-card hover:border-primary/20 transition-all duration-300 animate-fade-in group"
+              className="bg-card p-5 md:p-6 rounded-xl border border-border hover:border-primary/30 transition-colors duration-300 animate-fade-in group"
               style={{ animationDelay: `${index * 75}ms` }}
             >
-              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
+              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/15 transition-colors duration-300">
                 <item.icon className="h-6 w-6 text-primary" />
               </div>
               <h3 className="font-heading font-bold text-foreground mb-1">{item.title}</h3>
