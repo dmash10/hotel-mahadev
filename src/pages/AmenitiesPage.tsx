@@ -5,14 +5,14 @@ import { BedDouble, Droplets, Zap, Car, UtensilsCrossed, Wifi, Shield, Users, Cl
 
 const featuredAmenities = [
   {
-    icon: Droplets,
-    title: "24/7 Hot Water",
-    description: "Every room has a geyser for hot water anytime you need it. Essential after a long journey in the mountains.",
+    icon: BedDouble,
+    title: "Deluxe Rooms",
+    description: "Spacious and comfortable rooms with premium bedding and modern amenities. Perfect for families and groups.",
   },
   {
-    icon: UtensilsCrossed,
-    title: "In-house Restaurant",
-    description: "Fresh vegetarian meals including South Indian and North Indian cuisine. No need to step out after a tiring day.",
+    icon: Wifi,
+    title: "Free WiFi",
+    description: "Stay connected with high-speed internet throughout the property. Stream, work, or share your journey moments.",
   },
   {
     icon: Car,
