@@ -3,17 +3,13 @@ import hotelExterior from "@/assets/hotel-exterior.jpg";
 
 const HeroSection = () => {
   return (
-    <section 
-      className="relative min-h-[90vh] md:min-h-[85vh] gradient-hero overflow-hidden"
-      style={{ viewTransitionName: "hero-section" }}
-    >
+    <section className="relative min-h-[90vh] md:min-h-[85vh] gradient-hero overflow-hidden">
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <img
           src={hotelExterior}
           alt="New Hotel Mahadev Exterior"
           className="w-full h-full object-cover"
-          style={{ viewTransitionName: "hero-image" }}
         />
         <div className="absolute inset-0 bg-gradient-to-r from-foreground/80 via-foreground/50 to-foreground/20" />
         <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 via-transparent to-transparent md:hidden" />
@@ -27,10 +23,7 @@ const HeroSection = () => {
               On the Kedarnath Route
             </span>
             
-            <h1 
-              className="font-heading text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white leading-tight mb-3"
-              style={{ viewTransitionName: "hero-title" }}
-            >
+            <h1 className="font-heading text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white leading-tight mb-3">
               A Clean, Comfortable Place to Stop Before{" "}
               <span className="text-gold-light">Kedarnath</span>
             </h1>
@@ -57,10 +50,7 @@ const HeroSection = () => {
           </div>
 
           {/* Right - Booking Card */}
-          <div 
-            className="order-2 lg:order-2 flex justify-center lg:justify-end mt-2 lg:mt-0"
-            style={{ viewTransitionName: "booking-form" }}
-          >
+          <div className="order-2 lg:order-2 flex justify-center lg:justify-end mt-2 lg:mt-0">
             <BookingCard />
           </div>
         </div>
