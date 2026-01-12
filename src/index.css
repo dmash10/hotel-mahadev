@@ -187,7 +187,7 @@
 
 /* View Transitions API - Premium page transitions */
 @view-transition {
-  navigation: auto;
+  navigation: none;
 }
 
 /* Root page transitions - smooth crossfade */
