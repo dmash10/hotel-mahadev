@@ -1,92 +1,92 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import StickyMobileCTA from "@/components/StickyMobileCTA";
+import PageHero from "@/components/PageHero";
 import { useState } from "react";
-import { X } from "lucide-react";
-import hotelExterior from "@/assets/hotel-exterior.jpg";
-import roomDouble from "@/assets/room-double.jpg";
-import roomTriple from "@/assets/room-triple.jpg";
-import roomQuad from "@/assets/room-quad.jpg";
-import restaurant from "@/assets/restaurant.jpg";
-import locationView from "@/assets/location-view.jpg";
+import { X, Play, Loader2 } from "lucide-react";
+import { useImageZones, ZoneMedia } from "@/hooks/useImageZones";
 
 const categories = [
-  { id: "all", label: "All Photos" },
+  { id: "all", label: "All" },
   { id: "hotel", label: "Hotel" },
   { id: "rooms", label: "Rooms" },
   { id: "restaurant", label: "Restaurant" },
-  { id: "surroundings", label: "Surroundings" },
+  { id: "surroundings", label: "Views" },
+  { id: "guests", label: "Guests" },
 ];
 
-// Bento grid sizes: "large" = 2x2, "wide" = 2x1, "tall" = 1x2, "normal" = 1x1
-const galleryImages = [
-  { id: 1, src: hotelExterior, category: "hotel", title: "Hotel Exterior", size: "large" as const },
-  { id: 2, src: roomDouble, category: "rooms", title: "Double Bed Room", size: "wide" as const },
-  { id: 3, src: roomTriple, category: "rooms", title: "Triple Bed Room", size: "normal" as const },
-  { id: 4, src: roomQuad, category: "rooms", title: "Quad Bed Room", size: "tall" as const },
-  { id: 5, src: restaurant, category: "restaurant", title: "In-house Restaurant", size: "wide" as const },
-  { id: 6, src: locationView, category: "surroundings", title: "Mountain View", size: "large" as const },
-];
-
-const getBentoClasses = (size: string) => {
-  switch (size) {
-    case "large":
-      return "md:col-span-2 md:row-span-2";
-    case "wide":
-      return "md:col-span-2 md:row-span-1";
-    case "tall":
-      return "md:col-span-1 md:row-span-2";
-    default:
-      return "md:col-span-1 md:row-span-1";
-  }
+// Gallery items - supports both images and videos
+type GalleryItem = {
+  id: number | string;
+  src: string;
+  category: string;
+  title: string;
+  type: "image" | "video";
 };
 
 const GalleryPage = () => {
+  const { getZoneMedia, getZoneDisplay, getZoneImage, loading } = useImageZones();
   const [activeCategory, setActiveCategory] = useState("all");
-  const [selectedImage, setSelectedImage] = useState<typeof galleryImages[0] | null>(null);
+  const [selectedItem, setSelectedItem] = useState<GalleryItem | null>(null);
 
-  const filteredImages = activeCategory === "all" 
-    ? galleryImages 
-    : galleryImages.filter(img => img.category === activeCategory);
+  // Dynamic Data - database only
+  const mainGallery = getZoneMedia('gallery_page_grid');
+  const restaurantImg = getZoneDisplay('restaurant_section');
+  const locationImg = getZoneDisplay('location_section');
+  const roomDoubleMedia = getZoneMedia('room_double_gallery');
+  const roomTripleMedia = getZoneMedia('room_triple_gallery');
+  const roomQuadMedia = getZoneMedia('room_quad_gallery');
+  const heroImage = getZoneImage('gallery_page_hero') || '';
+
+  // Map Helpers
+  const mapMedia = (media: ZoneMedia[], category: string, titleBase: string): GalleryItem[] => {
+    return media.map((m, i) => ({
+      id: m.id,
+      src: m.url,
+      category,
+      title: `${titleBase} ${i + 1}`,
+      type: m.type as 'image' | 'video'
+    }));
+  };
+
+  // Only use database images - no hardcoded fallbacks
+  const displayItems = [
+    ...mapMedia(mainGallery, 'hotel', 'Hotel'),
+    ...(restaurantImg ? [{ id: 'rest_hero', src: restaurantImg.url, category: 'restaurant', title: 'Restaurant', type: restaurantImg.type as 'image' | 'video' }] : []),
+    ...(locationImg ? [{ id: 'loc_hero', src: locationImg.url, category: 'surroundings', title: 'Location', type: locationImg.type as 'image' | 'video' }] : []),
+    ...mapMedia(roomDoubleMedia, 'rooms', 'Double Room'),
+    ...mapMedia(roomTripleMedia, 'rooms', 'Triple Room'),
+    ...mapMedia(roomQuadMedia, 'rooms', 'Quad Room'),
+  ];
+
+  const filteredItems = activeCategory === "all"
+    ? displayItems
+    : displayItems.filter(item => item.category === activeCategory);
 
   return (
-    <div className="min-h-screen bg-background pb-20 md:pb-0">
+    <div className="min-h-screen bg-white pb-20 md:pb-0">
       <Header />
       <main>
-        {/* Hero Section */}
-        <section className="relative py-16 md:py-20 overflow-hidden">
-          {/* Background gradients */}
-          <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-gold/5" />
-          <div className="absolute top-0 left-1/2 w-96 h-96 bg-primary/10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
-          
-          <div className="container relative z-10">
-            <div className="text-center max-w-3xl mx-auto animate-fade-in">
-              <span className="inline-block px-4 py-1.5 bg-primary/10 text-primary text-sm font-semibold rounded-full mb-4">
-                Photo Gallery
-              </span>
-              <h1 className="font-heading text-3xl md:text-5xl font-bold text-foreground mb-4">
-                Explore Our Hotel
-              </h1>
-              <p className="text-muted-foreground text-lg">
-                Take a look at our rooms, restaurant, and the beautiful mountain surroundings.
-              </p>
-            </div>
-          </div>
-        </section>
+        {/* Hero */}
+        <PageHero
+          title="See Our Spaces"
+          subtitle="Browse through our rooms, dining area, and mountain views"
+          badge="Gallery"
+          backgroundImage={heroImage}
+        />
 
         {/* Category Filters */}
-        <section className="py-6 border-b border-border sticky top-16 md:top-20 bg-background/95 backdrop-blur-md z-40">
+        <section className="py-4 md:py-5 border-b border-slate-200 sticky top-[104px] md:top-[112px] bg-white/95 backdrop-blur-md z-40">
           <div className="container">
-            <div className="flex flex-wrap justify-center gap-2 md:gap-3">
+            <div className="flex justify-center gap-2 overflow-x-auto scrollbar-hide -mx-4 px-4 md:mx-0 md:px-0">
               {categories.map((cat) => (
                 <button
                   key={cat.id}
                   onClick={() => setActiveCategory(cat.id)}
-                  className={`px-4 md:px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
-                    activeCategory === cat.id
-                      ? "bg-primary text-primary-foreground"
-                      : "bg-muted text-muted-foreground hover:bg-primary/10 hover:text-primary"
-                  }`}
+                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all whitespace-nowrap ${activeCategory === cat.id
+                    ? "bg-slate-900 text-white"
+                    : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                    }`}
                 >
                   {cat.label}
                 </button>
@@ -95,73 +95,77 @@ const GalleryPage = () => {
           </div>
         </section>
 
-        {/* Bento Gallery Grid */}
-        <section className="py-10 md:py-16">
+        {/* Masonry Gallery */}
+        <section className="py-4 md:py-6">
           <div className="container">
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 auto-rows-[180px] md:auto-rows-[200px] gap-3 md:gap-4">
-              {filteredImages.map((image, index) => (
+            <div className="columns-2 md:columns-3 lg:columns-4 gap-2 md:gap-3">
+              {filteredItems.map((item) => (
                 <div
-                  key={image.id}
-                  onClick={() => setSelectedImage(image)}
-                  className={`relative rounded-2xl overflow-hidden cursor-pointer group animate-fade-in ${getBentoClasses(image.size)}`}
-                  style={{ animationDelay: `${index * 80}ms` }}
+                  key={item.id}
+                  onClick={() => setSelectedItem(item)}
+                  className="break-inside-avoid mb-2 md:mb-3 cursor-pointer group overflow-hidden"
                 >
-                  {/* Image */}
-                  <img
-                    src={image.src}
-                    alt={image.title}
-                    className="w-full h-full object-cover transition-all duration-500 group-hover:brightness-110"
-                  />
-                  
-                  {/* Gradient overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-foreground/70 via-foreground/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-300" />
-                  
-                  {/* Glassmorphism label */}
-                  <div className="absolute bottom-0 left-0 right-0 p-4">
-                    <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-white/10 backdrop-blur-md rounded-lg border border-white/20">
-                      <span className="text-white font-medium text-sm">{image.title}</span>
+                  {item.type === "video" ? (
+                    <div className="relative">
+                      <video
+                        src={item.src}
+                        className="w-full h-auto block"
+                        muted
+                        playsInline
+                        preload="metadata"
+                      />
+                      <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/30 transition-colors">
+                        <div className="w-12 h-12 bg-white/90 flex items-center justify-center">
+                          <Play className="h-5 w-5 text-slate-900 ml-0.5" fill="currentColor" />
+                        </div>
+                      </div>
                     </div>
-                  </div>
-
-                  {/* Hover shine effect */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  ) : (
+                    <img
+                      src={item.src}
+                      alt={item.title}
+                      className="w-full h-auto block transition-transform duration-300 group-hover:scale-[1.02]"
+                      loading="lazy"
+                    />
+                  )}
                 </div>
               ))}
             </div>
 
             {/* Empty state */}
-            {filteredImages.length === 0 && (
+            {filteredItems.length === 0 && (
               <div className="text-center py-16">
-                <p className="text-muted-foreground">No photos in this category yet.</p>
+                <p className="text-slate-500">No photos in this category yet.</p>
               </div>
             )}
           </div>
         </section>
 
         {/* Lightbox */}
-        {selectedImage && (
+        {selectedItem && (
           <div
-            className="fixed inset-0 z-50 bg-foreground/95 backdrop-blur-sm flex items-center justify-center p-4"
-            onClick={() => setSelectedImage(null)}
+            className="fixed inset-0 z-50 bg-black flex items-center justify-center p-2 md:p-4"
+            onClick={() => setSelectedItem(null)}
           >
-            <div className="relative max-w-5xl w-full animate-scale-in" onClick={(e) => e.stopPropagation()}>
-              <img
-                src={selectedImage.src}
-                alt={selectedImage.title}
-                className="w-full h-auto max-h-[80vh] object-contain rounded-2xl"
-              />
-              
-              {/* Title label */}
-              <div className="absolute bottom-4 left-1/2 -translate-x-1/2">
-                <div className="px-5 py-2.5 bg-white/10 backdrop-blur-md rounded-xl border border-white/20">
-                  <p className="text-white font-semibold">{selectedImage.title}</p>
-                </div>
-              </div>
-              
-              {/* Close button */}
+            <div className="relative max-w-6xl w-full" onClick={(e) => e.stopPropagation()}>
+              {selectedItem.type === "video" ? (
+                <video
+                  src={selectedItem.src}
+                  className="w-full h-auto max-h-[90vh]"
+                  controls
+                  autoPlay
+                />
+              ) : (
+                <img
+                  src={selectedItem.src}
+                  alt={selectedItem.title}
+                  className="w-full h-auto max-h-[90vh] object-contain"
+                />
+              )}
+
               <button
-                onClick={() => setSelectedImage(null)}
-                className="absolute top-4 right-4 w-11 h-11 bg-white/10 hover:bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white transition-colors border border-white/20"
+                onClick={() => setSelectedItem(null)}
+                className="absolute top-2 right-2 w-10 h-10 bg-black/50 hover:bg-black/70 flex items-center justify-center text-white transition-colors"
               >
                 <X className="h-5 w-5" />
               </button>

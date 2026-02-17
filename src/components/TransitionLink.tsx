@@ -1,6 +1,6 @@
 import { useViewTransition } from "@/hooks/useViewTransition";
 import { cn } from "@/lib/utils";
-import { ReactNode, MouseEvent } from "react";
+import { ReactNode, MouseEvent, CSSProperties } from "react";
 import { useLocation } from "react-router-dom";
 
 interface TransitionLinkProps {
@@ -10,6 +10,7 @@ interface TransitionLinkProps {
   activeClassName?: string;
   onClick?: () => void;
   viewTransitionName?: string;
+  style?: CSSProperties;
 }
 
 const TransitionLink = ({
@@ -19,6 +20,7 @@ const TransitionLink = ({
   activeClassName,
   onClick,
   viewTransitionName,
+  style,
 }: TransitionLinkProps) => {
   const { navigateWithTransition } = useViewTransition();
   const location = useLocation();
@@ -31,12 +33,17 @@ const TransitionLink = ({
     navigateWithTransition(to);
   };
 
+  const combinedStyle: CSSProperties = {
+    ...style,
+    ...(viewTransitionName ? { viewTransitionName } : {}),
+  };
+
   return (
     <a
       href={to}
       onClick={handleClick}
       className={cn(className, isActive && activeClassName)}
-      style={viewTransitionName ? { viewTransitionName } : undefined}
+      style={Object.keys(combinedStyle).length > 0 ? combinedStyle : undefined}
     >
       {children}
     </a>
@@ -44,3 +51,4 @@ const TransitionLink = ({
 };
 
 export default TransitionLink;
+

@@ -1,25 +1,26 @@
 import { Button } from "@/components/ui/button";
-import { Phone, MessageCircle } from "lucide-react";
+import { Phone } from "lucide-react";
+import WhatsAppIcon from "@/components/WhatsAppIcon";
 
 const CTASection = () => {
   const handleCall = () => {
-    window.open("tel:+919876543210", "_self");
+    window.open("tel:+919927279127", "_self");
   };
 
   const handleWhatsApp = () => {
-    const message = encodeURIComponent("Hi, I'd like to enquire about room availability at New Hotel Mahadev.");
-    window.open(`https://wa.me/919876543210?text=${message}`, "_blank");
+    const message = encodeURIComponent("Namaste 🙏 I'm planning my Kedarnath yatra and need accommodation. Please help me with room availability and booking.");
+    window.open(`https://wa.me/919927279127?text=${message}`, "_blank");
   };
 
   return (
-    <section className="gradient-cta py-16 md:py-20">
+    <section className="gradient-cta py-12 md:py-14">
       <div className="container">
         <div className="max-w-3xl mx-auto text-center animate-fade-in">
           <h2 className="font-heading text-3xl md:text-4xl font-bold text-primary-foreground mb-4">
             Ready to Book Your Stay?
           </h2>
           <p className="text-primary-foreground/80 text-lg mb-8 max-w-xl mx-auto">
-            If you're planning to stop in Guptkashi, message us directly. We'll confirm availability 
+            If you're planning to stop in Guptkashi, message us directly. We'll confirm availability
             and answer your questions right away.
           </p>
 
@@ -29,7 +30,7 @@ const CTASection = () => {
               Call Now
             </Button>
             <Button onClick={handleWhatsApp} variant="whatsapp" size="xl" className="font-bold">
-              <MessageCircle className="h-5 w-5" />
+              <WhatsAppIcon className="h-5 w-5" />
               Message on WhatsApp
             </Button>
           </div>

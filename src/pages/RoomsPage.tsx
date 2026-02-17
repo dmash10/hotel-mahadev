@@ -1,495 +1,300 @@
 import { useState } from "react";
-import { flushSync } from "react-dom";
+import { Link } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import StickyMobileCTA from "@/components/StickyMobileCTA";
+import PageHero from "@/components/PageHero";
 import { Button } from "@/components/ui/button";
-import { Users, Wifi, Droplets, Tv, Zap, Bath, MessageCircle, Check, ArrowLeft, ChevronLeft, ChevronRight } from "lucide-react";
-import roomDouble from "@/assets/room-double.jpg";
-import roomTriple from "@/assets/room-triple.jpg";
-import roomQuad from "@/assets/room-quad.jpg";
-
-const rooms = [
-  {
-    id: "double",
-    name: "Double Bed Room",
-    shortDesc: "Comfortable room for two guests",
-    description: "Our Double Bed Room offers a peaceful retreat after a long journey. The room features a comfortable double bed with quality mattress, clean linens, and warm blankets. Natural light fills the space through windows that offer glimpses of the surrounding mountains.",
-    maxGuests: 2,
-    fakePrice: 2500,
-    realPrice: 1500,
-    discount: 40,
-    images: [roomDouble, roomTriple, roomQuad],
-    available: true,
-    amenities: ["Double Bed", "Hot Water", "Free WiFi", "Attached Bath", "TV", "Power Backup"],
-    fullAmenities: [
-      "Comfortable double bed with quality mattress",
-      "Attached bathroom with 24/7 hot water",
-      "Free WiFi connectivity",
-      "LED Television with cable",
-      "Clean towels and toiletries",
-      "Room service available",
-      "Power backup",
-      "Mountain view",
-      "Daily housekeeping",
-    ],
-  },
-  {
-    id: "triple",
-    name: "Triple Bed Room",
-    shortDesc: "Perfect for small families or groups",
-    description: "Perfect for small families or groups of three, this room provides ample space without feeling crowded. Three single beds are arranged thoughtfully to ensure everyone has their own comfortable sleeping space while still feeling connected.",
-    maxGuests: 3,
-    fakePrice: 3500,
-    realPrice: 2200,
-    discount: 37,
-    images: [roomTriple, roomDouble, roomQuad],
-    available: true,
-    amenities: ["3 Single Beds", "Hot Water", "Free WiFi", "Attached Bath", "TV", "Power Backup"],
-    fullAmenities: [
-      "Three comfortable single beds",
-      "Spacious room layout",
-      "Attached bathroom with 24/7 hot water",
-      "Free WiFi connectivity",
-      "LED Television with cable",
-      "Clean towels and toiletries",
-      "Room service available",
-      "Power backup",
-      "Daily housekeeping",
-    ],
-  },
-  {
-    id: "four",
-    name: "Four Bed Room",
-    shortDesc: "Ideal for families with children",
-    description: "Our Four Bed Room is ideal for families or groups travelling together. With four comfortable beds and a spacious layout, everyone can rest well before continuing their pilgrimage journey. Extra space for luggage and seating area included.",
-    maxGuests: 4,
-    fakePrice: 4500,
-    realPrice: 2800,
-    discount: 38,
-    images: [roomQuad, roomDouble, roomTriple],
-    available: true,
-    amenities: ["4 Beds", "Hot Water", "Free WiFi", "Attached Bath", "TV", "Power Backup"],
-    fullAmenities: [
-      "Four comfortable beds",
-      "Extra spacious room layout",
-      "Attached bathroom with 24/7 hot water",
-      "Free WiFi connectivity",
-      "LED Television with cable",
-      "Seating area",
-      "Clean towels and toiletries",
-      "Room service available",
-      "Power backup",
-      "Daily housekeeping",
-    ],
-  },
-  {
-    id: "five",
-    name: "Five Bed Room",
-    shortDesc: "Best for large groups and families",
-    description: "Our largest room option, the Five Bed Room is perfect for large families or groups travelling together. With five comfortable beds arranged in a spacious layout, everyone gets their own space while staying together. Ideal for pilgrimage groups.",
-    maxGuests: 5,
-    fakePrice: 5500,
-    realPrice: 3500,
-    discount: 36,
-    images: [roomQuad, roomTriple, roomDouble],
-    available: true,
-    amenities: ["5 Beds", "Hot Water", "Free WiFi", "Attached Bath", "TV", "Power Backup"],
-    fullAmenities: [
-      "Five comfortable beds",
-      "Largest room option",
-      "Attached bathroom with 24/7 hot water",
-      "Free WiFi connectivity",
-      "LED Television with cable",
-      "Seating area",
-      "Extra luggage space",
-      "Clean towels and toiletries",
-      "Room service available",
-      "Power backup",
-      "Daily housekeeping",
-    ],
-  },
-];
-
-const amenityIcons: Record<string, React.ElementType> = {
-  "Double Bed": Users,
-  "3 Single Beds": Users,
-  "4 Beds": Users,
-  "5 Beds": Users,
-  "Hot Water": Droplets,
-  "Free WiFi": Wifi,
-  "Attached Bath": Bath,
-  "TV": Tv,
-  "Power Backup": Zap,
-};
-
-const RoomCard = ({ room, onClick }: { room: typeof rooms[0]; onClick: () => void }) => {
-  const handleClick = () => {
-    // View Transitions need a synchronous DOM commit for stable snapshots (prevents flicker)
-    if (document.startViewTransition) {
-      document.startViewTransition(() => {
-        flushSync(() => {
-          onClick();
-        });
-      });
-    } else {
-      onClick();
-    }
-  };
-
-  return (
-    <div onClick={handleClick} className="group relative cursor-pointer">
-      {/* Card Container - No scale/shadow on hover, smooth border transition */}
-      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-card via-card/95 to-card/90 border border-border/50 transition-[border-color] duration-700 ease-out group-hover:border-primary/40">
-        {/* Animated gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/0 via-primary/0 to-primary/0 group-hover:from-primary/3 group-hover:via-transparent group-hover:to-accent/3 transition-all duration-700 ease-out" />
-        
-        <div className="flex flex-col md:flex-row">
-          {/* Image Section with Parallax Effect */}
-          <div className="relative w-full md:w-56 lg:w-64 h-56 md:h-auto flex-shrink-0 overflow-hidden bg-muted">
-            {/* Parallax Image - translateY on hover instead of scale */}
-            <div className="absolute inset-0 transition-transform duration-700 ease-out group-hover:-translate-y-2 will-change-transform">
-              <img
-                src={room.images[0]}
-                alt={room.name}
-                className="w-full h-[110%] object-cover"
-                decoding="async"
-              />
-            </div>
-            
-            {/* Gradient Overlay - Animated opacity */}
-            <div className="absolute inset-0 bg-gradient-to-t from-foreground/50 via-foreground/10 to-transparent md:bg-gradient-to-r md:from-transparent md:via-transparent md:to-card/40 opacity-70 group-hover:opacity-90 transition-opacity duration-700" />
-            
-            {/* Badges with smooth fade */}
-            <div className="absolute top-4 left-4 flex flex-col gap-2">
-              {room.available && (
-                <span className="inline-flex items-center gap-1.5 bg-success/90 backdrop-blur-sm text-success-foreground px-3 py-1.5 rounded-full text-xs font-bold opacity-90 group-hover:opacity-100 transition-opacity duration-500">
-                  <span className="w-1.5 h-1.5 bg-success-foreground rounded-full animate-pulse" />
-                  Available Now
-                </span>
-              )}
-            </div>
-            
-            {/* Discount Badge */}
-            <div className="absolute top-4 right-4">
-              <span className="bg-gradient-to-r from-destructive to-destructive/90 text-destructive-foreground px-3 py-1.5 rounded-full text-xs font-bold">
-                {room.discount}% OFF
-              </span>
-            </div>
-
-            {/* Room Capacity Badge - Mobile Only */}
-            <div className="absolute bottom-4 left-4 md:hidden">
-              <span className="inline-flex items-center gap-1.5 bg-background/80 backdrop-blur-sm text-foreground px-3 py-1.5 rounded-full text-sm font-medium">
-                <Users className="h-4 w-4 text-primary" />
-                {room.maxGuests} Guests
-              </span>
-            </div>
-          </div>
-
-          {/* Content Section */}
-          <div className="relative flex-1 p-5 md:p-6 flex flex-col">
-            {/* Header with smooth color transition */}
-            <div className="flex items-start justify-between gap-4 mb-4">
-              <div>
-                <h3 className="font-heading text-xl md:text-2xl font-bold text-foreground transition-colors duration-500 ease-out group-hover:text-primary">
-                  {room.name}
-                </h3>
-                <p className="text-sm text-muted-foreground mt-1 flex items-center gap-2">
-                  <span className="hidden md:inline-flex items-center gap-1">
-                    <Users className="h-4 w-4 text-primary" />
-                    Up to {room.maxGuests} guests
-                  </span>
-                  <span className="hidden md:inline-block w-1 h-1 rounded-full bg-muted-foreground/50" />
-                  <span className="text-primary/80 font-medium transition-colors duration-500 group-hover:text-primary">{room.shortDesc}</span>
-                </p>
-              </div>
-            </div>
-
-            {/* Price Section with subtle background animation */}
-            <div className="mb-5">
-              <div className="inline-flex items-center gap-3 bg-muted/50 rounded-xl px-4 py-3 border border-border/30 transition-[background-color,border-color] duration-700 group-hover:bg-muted/70 group-hover:border-border/50">
-                <div className="flex flex-col">
-                  <span className="text-xs text-muted-foreground">Was</span>
-                  <span className="text-base text-destructive/80 line-through font-medium">₹{room.fakePrice.toLocaleString()}</span>
-                </div>
-                <div className="w-px h-10 bg-border/50" />
-                <div className="flex flex-col">
-                  <span className="text-xs text-muted-foreground">Now</span>
-                  <span className="text-2xl font-bold text-success">₹{room.realPrice.toLocaleString()}</span>
-                </div>
-                <span className="text-xs text-muted-foreground self-end pb-1">/night</span>
-              </div>
-            </div>
-
-            {/* Amenities with staggered hover reveal */}
-            <div className="flex flex-wrap gap-2 mb-5">
-              {room.amenities.map((amenity, idx) => {
-                const Icon = amenityIcons[amenity] || Check;
-                return (
-                  <span
-                    key={amenity}
-                    className="inline-flex items-center gap-1.5 text-xs font-medium text-muted-foreground bg-muted/40 px-3 py-1.5 rounded-full border border-border/20 transition-all duration-500 ease-out group-hover:bg-muted/60 group-hover:border-border/40 group-hover:text-foreground"
-                    style={{ transitionDelay: `${idx * 30}ms` }}
-                  >
-                    <Icon className="h-3.5 w-3.5 text-primary transition-transform duration-500 group-hover:rotate-6" />
-                    {amenity}
-                  </span>
-                );
-              })}
-            </div>
-
-            {/* CTA with smooth arrow animation */}
-            <div className="mt-auto flex items-center justify-between">
-              <span className="text-sm text-muted-foreground opacity-60 group-hover:opacity-100 transition-opacity duration-500">
-                Click to view details
-              </span>
-              <div className="flex items-center gap-2 text-primary font-semibold text-sm transition-all duration-500 ease-out group-hover:gap-3">
-                View Room
-                <ArrowLeft className="h-4 w-4 rotate-180 transition-transform duration-500 ease-out group-hover:translate-x-1" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-const RoomDetail = ({ room, onBack }: { room: typeof rooms[0]; onBack: () => void }) => {
-  const [currentImage, setCurrentImage] = useState(0);
-
-  const nextImage = () => {
-    setCurrentImage((prev) => (prev + 1) % room.images.length);
-  };
-
-  const prevImage = () => {
-    setCurrentImage((prev) => (prev - 1 + room.images.length) % room.images.length);
-  };
-
-  const handleBooking = () => {
-    const message = encodeURIComponent(`Hi, I want to book ${room.name} at ₹${room.realPrice}/night. Please confirm availability.`);
-    window.open(`https://wa.me/919876543210?text=${message}`, "_blank");
-  };
-
-  return (
-    <div className="animate-fade-in">
-      {/* Hero Image Gallery */}
-      <section className="relative h-64 sm:h-80 md:h-[450px] overflow-hidden">
-        <img
-          src={room.images[currentImage]}
-          alt={room.name}
-          className="w-full h-full object-cover transition-opacity duration-300"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 via-transparent to-foreground/20" />
-        
-        {/* Navigation Arrows */}
-        <button
-          onClick={prevImage}
-          className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/20 hover:bg-white/40 backdrop-blur-sm flex items-center justify-center text-white transition-colors"
-        >
-          <ChevronLeft className="h-6 w-6" />
-        </button>
-        <button
-          onClick={nextImage}
-          className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/20 hover:bg-white/40 backdrop-blur-sm flex items-center justify-center text-white transition-colors"
-        >
-          <ChevronRight className="h-6 w-6" />
-        </button>
-
-        {/* Image Indicators */}
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
-          {room.images.map((_, idx) => (
-            <button
-              key={idx}
-              onClick={() => setCurrentImage(idx)}
-              className={`w-2 h-2 rounded-full transition-all ${
-                idx === currentImage ? "bg-white w-6" : "bg-white/50 hover:bg-white/70"
-              }`}
-            />
-          ))}
-        </div>
-
-        {/* Back Button */}
-        <button
-          onClick={onBack}
-          className="absolute top-4 left-4 flex items-center gap-2 px-3 py-2 rounded-lg bg-white/20 hover:bg-white/40 backdrop-blur-sm text-white text-sm font-medium transition-colors"
-        >
-          <ArrowLeft className="h-4 w-4" />
-          Back to Rooms
-        </button>
-
-        {/* Room Name Overlay */}
-        <div className="absolute bottom-0 left-0 right-0 p-4 md:p-6">
-          <div className="container">
-            <h1 className="font-heading text-2xl md:text-4xl font-bold text-white mb-2">{room.name}</h1>
-            <div className="flex items-center gap-3 text-white/80">
-              <span className="flex items-center gap-1">
-                <Users className="h-4 w-4" />
-                Up to {room.maxGuests} guests
-              </span>
-              <span className="w-1 h-1 rounded-full bg-white/50" />
-              <span className="text-success font-semibold">Available</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Thumbnail Strip */}
-      <section className="bg-muted py-3 overflow-x-auto">
-        <div className="container">
-          <div className="flex gap-2">
-            {room.images.map((img, idx) => (
-              <button
-                key={idx}
-                onClick={() => setCurrentImage(idx)}
-                className={`flex-shrink-0 w-16 h-12 md:w-20 md:h-14 rounded-lg overflow-hidden border-2 transition-all ${
-                  idx === currentImage ? "border-primary" : "border-transparent opacity-60 hover:opacity-100"
-                }`}
-              >
-                <img src={img} alt="" className="w-full h-full object-cover" />
-              </button>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Room Details */}
-      <section className="py-8 md:py-12">
-        <div className="container">
-          <div className="grid lg:grid-cols-3 gap-8">
-            {/* Main Content */}
-            <div className="lg:col-span-2 space-y-8">
-              {/* Description */}
-              <div>
-                <h2 className="font-heading text-xl font-bold text-foreground mb-4">About This Room</h2>
-                <p className="text-muted-foreground leading-relaxed">{room.description}</p>
-              </div>
-
-              {/* Amenities */}
-              <div>
-                <h2 className="font-heading text-xl font-bold text-foreground mb-4">Room Amenities</h2>
-                <div className="grid sm:grid-cols-2 gap-3">
-                  {room.fullAmenities.map((amenity) => (
-                    <div key={amenity} className="flex items-center gap-3 p-3 bg-muted rounded-lg">
-                      <Check className="h-5 w-5 text-success flex-shrink-0" />
-                      <span className="text-foreground">{amenity}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* Booking Card */}
-            <div className="lg:col-span-1">
-              <div className="bg-card rounded-xl border border-border p-6 sticky top-24">
-                <div className="mb-4">
-                  <div className="flex items-baseline gap-2 mb-1">
-                    <span className="text-lg text-destructive line-through">₹{room.fakePrice.toLocaleString()}</span>
-                    <span className="text-3xl font-bold text-success">₹{room.realPrice.toLocaleString()}</span>
-                  </div>
-                  <p className="text-sm text-muted-foreground">per night</p>
-                  <div className="mt-2 inline-block bg-destructive/10 text-destructive text-sm font-semibold px-3 py-1 rounded-full">
-                    Save ₹{(room.fakePrice - room.realPrice).toLocaleString()} ({room.discount}% off)
-                  </div>
-                </div>
-
-                <div className="border-t border-border pt-4 mb-4">
-                  <div className="flex items-center justify-between text-sm mb-2">
-                    <span className="text-muted-foreground">Room Type</span>
-                    <span className="font-medium">{room.name}</span>
-                  </div>
-                  <div className="flex items-center justify-between text-sm">
-                    <span className="text-muted-foreground">Max Guests</span>
-                    <span className="font-medium">{room.maxGuests} persons</span>
-                  </div>
-                </div>
-
-                <Button onClick={handleBooking} variant="whatsapp" size="xl" className="w-full mb-3">
-                  <MessageCircle className="h-5 w-5" />
-                  Book on WhatsApp
-                </Button>
-
-                <p className="text-xs text-center text-muted-foreground">
-                  No advance payment required
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
-  );
-};
+import { Users, Wifi, Droplets, Tv, Zap, Bath, ArrowRight, BedDouble, Loader2, Mountain, Sparkles } from "lucide-react";
+import WhatsAppIcon from "@/components/WhatsAppIcon";
+import { useRooms } from "@/hooks/useRooms";
+import { useImageZones } from "@/hooks/useImageZones";
 
 const RoomsPage = () => {
-  const [selectedRoom, setSelectedRoom] = useState<typeof rooms[0] | null>(null);
+  const { rooms: dbRooms, loading } = useRooms();
+  const { getZoneMedia, getZoneImage } = useImageZones();
+  const [imageLoaded, setImageLoaded] = useState<Record<string, boolean>>({});
 
-  if (selectedRoom) {
-    return (
-      <div className="min-h-screen bg-background pb-20 md:pb-0">
-        <Header />
-        <main>
-          <RoomDetail room={selectedRoom} onBack={() => setSelectedRoom(null)} />
-        </main>
-        <Footer />
-        <StickyMobileCTA />
-      </div>
-    );
-  }
+  const galleryDouble = getZoneMedia('room_double_gallery');
+  const galleryTriple = getZoneMedia('room_triple_gallery');
+  const galleryQuad = getZoneMedia('room_quad_gallery');
+  const galleryFive = getZoneMedia('room_five_gallery');
+  const heroImage = getZoneImage('rooms_page_hero') || getZoneImage('home_hero') || '';
+
+  // Get room images based on room type - database only, no hardcoded fallbacks
+  const getRoomImages = (roomName: string): string[] => {
+    const dynamicMap: Record<string, any[]> = {
+      "Super Deluxe Room": galleryDouble,
+      "Premium Triple Room": galleryTriple,
+      "Deluxe Family Suite": galleryQuad,
+      "Grand Family Suite": galleryFive,
+    };
+
+    const zoneMedia = dynamicMap[roomName];
+    if (zoneMedia && zoneMedia.length >= 1) {
+      return zoneMedia.map(m => m.url);
+    }
+    return []; // No fallback - will show placeholder
+  };
+
+  // Transform rooms
+  const displayRooms = dbRooms
+    .map(room => ({
+      ...room,
+      images: getRoomImages(room.name),
+      discount: room.fake_price && room.real_price
+        ? Math.round(((room.fake_price - room.real_price) / room.fake_price) * 100)
+        : 0,
+    }))
+    .sort((a, b) => a.real_price! - b.real_price!);
+
+  // Get room type label
+  const getRoomType = (maxGuests: number) => {
+    if (maxGuests <= 2) return "Affordable";
+    if (maxGuests === 3) return "Popular";
+    return "Family Suite";
+  };
+
+  // Get key amenities to show on card
+  const getKeyAmenities = (room: typeof displayRooms[0]) => {
+    const icons = [
+      { icon: Wifi, label: "WiFi" },
+      { icon: Droplets, label: "Hot Water" },
+      { icon: Tv, label: "TV" },
+      { icon: Zap, label: "Power" },
+    ];
+    if (room.max_guests >= 5) {
+      icons.push({ icon: Mountain, label: "Balcony" });
+    }
+    return icons.slice(0, 4);
+  };
+
+  // Handle image load for shimmer effect
+  const handleImageLoad = (roomId: string) => {
+    setImageLoaded(prev => ({ ...prev, [roomId]: true }));
+  };
 
   return (
-    <div className="min-h-screen bg-background pb-20 md:pb-0">
+    <>
       <Header />
-      <main>
-        {/* Hero Banner */}
-        <section className="relative h-48 md:h-64 overflow-hidden">
-          <img src={roomDouble} alt="Hotel Rooms" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-foreground/60" />
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="text-center">
-              <h1 className="font-heading text-2xl md:text-4xl font-bold text-white mb-2">Our Rooms</h1>
-              <p className="text-white/80 text-sm md:text-base max-w-xl mx-auto px-4">
-                Clean, comfortable rooms at honest prices. Click on any room to see details.
-              </p>
-            </div>
-          </div>
-        </section>
+      <main className="min-h-screen bg-slate-50 pb-20">
+        <PageHero
+          title="Comfortable Stays for Every Pilgrim"
+          subtitle="Experience warm hospitality and clean, spacious rooms designed for your comfort during the Kedarnath Yatra."
+          badge="Premium Accommodations"
+          backgroundImage={heroImage}
+        />
 
-        {/* Rooms List */}
-        <section className="py-8 md:py-12">
-          <div className="container max-w-4xl">
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="font-heading text-xl font-bold text-foreground">
-                {rooms.length} Room Types Available
-              </h2>
-              <span className="text-sm text-success font-medium">✓ Direct booking prices</span>
-            </div>
+        <div className="container py-8 px-4 md:px-6">
 
-            <div className="space-y-4">
-              {rooms.map((room, index) => (
-                <div
-                  key={room.id}
-                  className="animate-slide-up"
-                  style={{ animationDelay: `${index * 100}ms` }}
-                >
-                  <RoomCard room={room} onClick={() => setSelectedRoom(room)} />
+          {/* Rooms Grid */}
+          <div>
+            {loading ? (
+              <div className="flex justify-center py-20">
+                <Loader2 className="h-12 w-12 animate-spin text-amber-500" />
+              </div>
+            ) : displayRooms.length === 0 ? (
+              <div className="text-center py-10">
+                <p className="text-slate-500">No rooms available at the moment.</p>
+              </div>
+            ) : (
+              <>
+                {/* Desktop Grid */}
+                <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                  {displayRooms.map((room) => (
+                    <Link
+                      key={room.id}
+                      to={`/rooms/${room.slug}`}
+                      className="bg-white rounded-2xl border border-slate-200 overflow-hidden group flex flex-col transition-all duration-300 hover:border-amber-200"
+                    >
+                      {/* Image Section */}
+                      <div className="relative h-44 overflow-hidden bg-slate-100">
+                        {/* Shimmer placeholder */}
+                        {!imageLoaded[room.id] && (
+                          <div className="absolute inset-0 bg-gradient-to-r from-slate-100 via-slate-200 to-slate-100 animate-shimmer" />
+                        )}
+                        <img
+                          src={room.images[0]}
+                          alt={room.name}
+                          className={`w-full h-full object-cover transition-opacity duration-500 ${imageLoaded[room.id] ? 'opacity-100' : 'opacity-0'
+                            }`}
+                          onLoad={() => handleImageLoad(room.id)}
+                        />
+
+                        {/* Badges */}
+                        {!room.is_available && (
+                          <div className="absolute inset-0 bg-black/60 flex items-center justify-center backdrop-blur-[2px]">
+                            <span className="bg-red-600/90 text-white px-4 py-1.5 rounded-full font-bold uppercase tracking-wider transform -rotate-12 border-2 border-white shadow-xl text-sm">
+                              Sold Out
+                            </span>
+                          </div>
+                        )}
+                        {room.is_available && room.discount > 0 && (
+                          <div className="absolute top-3 left-3 bg-red-500 text-white text-xs font-bold px-2.5 py-1 rounded-lg shadow-lg z-10">
+                            {room.discount}% OFF
+                          </div>
+                        )}
+                        {/* Room Type Badge */}
+                        <div className="absolute bottom-3 left-3">
+                          <span className="bg-slate-900/80 backdrop-blur-sm text-white text-xs font-medium px-2.5 py-1 rounded-lg">
+                            {getRoomType(room.max_guests)}
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Content Section */}
+                      <div className="p-4 flex flex-col flex-1">
+                        <div className="mb-3">
+                          <div className="flex justify-between items-start mb-2">
+                            <h3 className="font-bold text-lg text-slate-900 group-hover:text-amber-600 transition-colors line-clamp-1">
+                              {room.name}
+                            </h3>
+                          </div>
+
+                          {/* Price - Green for real price, red strikethrough for fake */}
+                          <div className="flex items-baseline gap-2 mb-3">
+                            <span className="text-2xl font-bold text-emerald-600">₹{room.real_price}</span>
+                            <span className="text-sm text-slate-500">/night</span>
+                            {room.fake_price && (
+                              <span className="text-sm text-red-500 line-through">₹{room.fake_price}</span>
+                            )}
+                          </div>
+
+                          {/* Guest count */}
+                          <div className="flex items-center gap-2 text-sm text-slate-500 mb-3">
+                            <span className="flex items-center gap-1">
+                              <Users className="h-4 w-4" /> Up to {room.max_guests} Guests
+                            </span>
+                          </div>
+                        </div>
+
+                        {/* Amenities - Better display with labels */}
+                        <div className="grid grid-cols-2 gap-2 mb-4 pb-4 border-b border-slate-100">
+                          {getKeyAmenities(room).map((amenity, idx) => (
+                            <div
+                              key={idx}
+                              className="flex items-center gap-2 text-xs text-slate-600"
+                            >
+                              <amenity.icon className="h-3.5 w-3.5 text-amber-500 flex-shrink-0" />
+                              <span>{amenity.label}</span>
+                            </div>
+                          ))}
+                        </div>
+
+                        {/* CTA */}
+                        <div className="mt-auto">
+                          <div className="w-full py-2 px-4 bg-amber-600 hover:bg-amber-700 text-white rounded-lg font-bold text-center transition-all duration-300 flex items-center justify-center gap-2 group-hover:shadow-lg">
+                            View Details
+                            <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                          </div>
+                        </div>
+                      </div>
+                    </Link>
+                  ))}
                 </div>
-              ))}
-            </div>
 
-            {/* Info Note */}
-            <div className="mt-8 p-4 bg-secondary rounded-xl text-center">
-              <p className="text-sm text-secondary-foreground">
-                <span className="font-semibold">Book directly with us</span> and get the best rates. 
-                No middlemen, no hidden charges.
-              </p>
+                {/* Mobile: Horizontal Cards */}
+                <div className="md:hidden space-y-4">
+                  {displayRooms.map((room) => (
+                    <Link
+                      key={room.id}
+                      to={`/rooms/${room.slug}`}
+                      className="bg-white rounded-xl border border-slate-200 overflow-hidden flex transition-all duration-300 w-full"
+                    >
+                      {/* Image - Left Side */}
+                      <div className="relative w-[45%] flex-shrink-0 bg-slate-100 min-h-[160px]">
+                        {!imageLoaded[room.id] && (
+                          <div className="absolute inset-0 bg-gradient-to-r from-slate-100 via-slate-200 to-slate-100 animate-shimmer" />
+                        )}
+                        <img
+                          src={room.images[0]}
+                          alt={room.name}
+                          className={`w-full h-full object-cover transition-opacity duration-500 ${imageLoaded[room.id] ? 'opacity-100' : 'opacity-0'
+                            }`}
+                          onLoad={() => handleImageLoad(room.id)}
+                        />
+                        {room.discount > 0 && (
+                          <div className="absolute top-2 left-2 bg-red-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded">
+                            {room.discount}%
+                          </div>
+                        )}
+                        {!room.is_available && (
+                          <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
+                            <span className="text-white text-[10px] font-bold bg-red-600 px-1.5 py-0.5 rounded">
+                              SOLD OUT
+                            </span>
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Content - Right Side */}
+                      <div className="flex-1 p-3 flex flex-col justify-between overflow-hidden">
+                        <div>
+                          <div className="flex items-start justify-between gap-2 mb-1">
+                            <h3 className="font-bold text-slate-900 text-sm line-clamp-1">
+                              {room.name}
+                            </h3>
+                          </div>
+
+                          {/* Price - Green for real, red strikethrough */}
+                          <div className="flex items-baseline gap-1.5 mb-2">
+                            <span className="text-lg font-bold text-emerald-600">₹{room.real_price}</span>
+                            {room.fake_price && (
+                              <span className="text-xs text-red-500 line-through">₹{room.fake_price}</span>
+                            )}
+                          </div>
+
+                          <div className="flex items-center gap-1 text-xs text-slate-500 mb-2">
+                            <Users className="h-3 w-3" />
+                            <span>{room.max_guests} Guests</span>
+                          </div>
+
+                          {/* Compact amenities */}
+                          <div className="flex items-center gap-1.5 text-[10px] text-slate-500">
+                            <span className="flex items-center gap-0.5"><Wifi className="h-3 w-3" /></span>
+                            <span>•</span>
+                            <span className="flex items-center gap-0.5"><Droplets className="h-3 w-3" /></span>
+                            <span>•</span>
+                            <span className="flex items-center gap-0.5"><Tv className="h-3 w-3" /></span>
+                            <span>•</span>
+                            <span className="flex items-center gap-0.5"><Zap className="h-3 w-3" /></span>
+                          </div>
+                        </div>
+
+                        <div className="flex items-center justify-end mt-2">
+                          <div className="px-3 py-1.5 bg-amber-600 text-white rounded-lg text-xs font-bold flex items-center gap-1 shadow-sm">
+                            Details <ArrowRight className="h-3 w-3" />
+                          </div>
+                        </div>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </>
+            )}
+          </div>
+
+          {/* Daily Cleaning Notice */}
+          <div className="mt-12 bg-gradient-to-r from-slate-50 to-slate-100 rounded-2xl p-6 md:p-8 border border-slate-200">
+            <div className="flex flex-col md:flex-row items-center gap-4 md:gap-6">
+              <div className="w-16 h-16 rounded-full bg-amber-100 flex items-center justify-center flex-shrink-0">
+                <Sparkles className="h-8 w-8 text-amber-600" />
+              </div>
+              <div className="text-center md:text-left">
+                <h3 className="text-lg font-bold text-slate-900 mb-1">Clean & Comfortable Stay</h3>
+                <p className="text-slate-600 text-sm">
+                  We clean all rooms daily, provide fresh bedding, and ensure hygienic washrooms.
+                  Hot water and power backup available for your comfort.
+                </p>
+              </div>
             </div>
           </div>
-        </section>
+        </div>
       </main>
       <Footer />
       <StickyMobileCTA />
-    </div>
+      <WhatsAppIcon />
+    </>
   );
 };
 

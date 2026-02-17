@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&family=Outfit:wght@600;700;800&display=swap');
 
 @layer base {
   :root {
@@ -10,64 +10,64 @@
     --primary: 214 100% 25%;
     --primary-light: 214 80% 45%;
     --primary-foreground: 0 0% 100%;
-    
+
     /* Secondary Blues */
     --secondary: 220 60% 96%;
     --secondary-foreground: 214 100% 25%;
-    
+
     /* Background & Surfaces */
     --background: 0 0% 100%;
     --foreground: 220 20% 20%;
-    
+
     --card: 0 0% 100%;
     --card-foreground: 220 20% 20%;
-    
+
     --popover: 0 0% 100%;
     --popover-foreground: 220 20% 20%;
-    
+
     /* Muted */
     --muted: 220 20% 96%;
     --muted-foreground: 220 10% 45%;
-    
+
     /* Accent - Gold */
     --accent: 45 93% 47%;
     --accent-foreground: 30 80% 15%;
-    
+
     /* Gold Highlight */
     --gold: 45 93% 47%;
     --gold-light: 48 96% 53%;
     --gold-foreground: 30 80% 15%;
-    
+
     /* Functional Colors */
     --success: 142 76% 36%;
     --success-foreground: 0 0% 100%;
-    
+
     --price: 38 92% 50%;
     --price-foreground: 0 0% 100%;
-    
+
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
-    
+
     /* Border & Input */
     --border: 220 20% 88%;
     --input: 220 20% 88%;
     --ring: 214 100% 45%;
-    
+
     --radius: 0.75rem;
-    
+
     /* Gradients */
     --gradient-primary: linear-gradient(135deg, hsl(214 100% 25%) 0%, hsl(214 80% 45%) 100%);
     --gradient-hero: linear-gradient(180deg, hsl(220 60% 97%) 0%, hsl(0 0% 100%) 100%);
     --gradient-price: linear-gradient(135deg, hsl(38 92% 50%) 0%, hsl(45 93% 60%) 100%);
     --gradient-cta: linear-gradient(180deg, hsl(214 100% 25%) 0%, hsl(214 80% 35%) 100%);
-    
+
     /* Shadows */
     --shadow-sm: 0 1px 2px 0 rgba(0, 53, 128, 0.05);
     --shadow-md: 0 4px 6px -1px rgba(0, 53, 128, 0.08), 0 2px 4px -1px rgba(0, 53, 128, 0.04);
     --shadow-lg: 0 10px 25px -3px rgba(0, 53, 128, 0.1), 0 4px 6px -2px rgba(0, 53, 128, 0.05);
     --shadow-xl: 0 20px 40px -5px rgba(0, 53, 128, 0.15);
     --shadow-card: 0 2px 12px rgba(0, 53, 128, 0.08);
-    
+
     /* Sidebar (keeping defaults) */
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -83,42 +83,42 @@
     --primary: 214 80% 55%;
     --primary-light: 214 70% 65%;
     --primary-foreground: 220 20% 10%;
-    
+
     --secondary: 220 30% 15%;
     --secondary-foreground: 0 0% 95%;
-    
+
     --background: 220 25% 8%;
     --foreground: 0 0% 95%;
-    
+
     --card: 220 25% 12%;
     --card-foreground: 0 0% 95%;
-    
+
     --popover: 220 25% 12%;
     --popover-foreground: 0 0% 95%;
-    
+
     --muted: 220 25% 18%;
     --muted-foreground: 220 15% 60%;
-    
+
     --accent: 45 85% 50%;
     --accent-foreground: 30 80% 10%;
-    
+
     --gold: 45 85% 50%;
     --gold-light: 48 90% 55%;
     --gold-foreground: 30 80% 10%;
-    
+
     --success: 142 70% 45%;
     --success-foreground: 0 0% 100%;
-    
+
     --price: 38 90% 55%;
     --price-foreground: 0 0% 100%;
-    
+
     --destructive: 0 70% 50%;
     --destructive-foreground: 0 0% 100%;
-    
+
     --border: 220 25% 20%;
     --input: 220 25% 20%;
     --ring: 214 80% 55%;
-    
+
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -137,11 +137,85 @@
 
   body {
     @apply bg-background text-foreground font-sans antialiased;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
   }
-  
-  h1, h2, h3, h4, h5, h6 {
-    font-family: 'Manrope', sans-serif;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  }
+
+  /* Hide scrollbar for horizontal scroll containers */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* iOS Safari date input fix */
+  input[type="date"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    color: #1e293b !important;
+    -webkit-text-fill-color: #1e293b !important;
+    opacity: 1 !important;
+  }
+
+  input[type="date"]::-webkit-date-and-time-value {
+    text-align: left;
+    color: #1e293b !important;
+    -webkit-text-fill-color: #1e293b !important;
+  }
+
+  input[type="date"]::-webkit-datetime-edit {
+    color: #1e293b !important;
+    -webkit-text-fill-color: #1e293b !important;
+  }
+
+  input[type="date"]::-webkit-datetime-edit-fields-wrapper {
+    color: #1e293b !important;
+    -webkit-text-fill-color: #1e293b !important;
+  }
+
+  input[type="date"]::-webkit-datetime-edit-text,
+  input[type="date"]::-webkit-datetime-edit-month-field,
+  input[type="date"]::-webkit-datetime-edit-day-field,
+  input[type="date"]::-webkit-datetime-edit-year-field {
+    color: #1e293b !important;
+    -webkit-text-fill-color: #1e293b !important;
+  }
+
+  /* Aggressive iOS date input hiding */
+  input[type="date"].opacity-0 {
+    -webkit-appearance: none !important;
+    background: transparent !important;
+    border: none !important;
+    color: transparent !important;
+    -webkit-text-fill-color: transparent !important;
+  }
+
+  input[type="date"].opacity-0::-webkit-date-and-time-value,
+  input[type="date"].opacity-0::-webkit-datetime-edit,
+  input[type="date"].opacity-0::-webkit-datetime-edit-fields-wrapper,
+  input[type="date"].opacity-0::-webkit-datetime-edit-text,
+  input[type="date"].opacity-0::-webkit-datetime-edit-month-field,
+  input[type="date"].opacity-0::-webkit-datetime-edit-day-field,
+  input[type="date"].opacity-0::-webkit-datetime-edit-year-field,
+  input[type="date"].opacity-0::-webkit-inner-spin-button,
+  input[type="date"].opacity-0::-webkit-calendar-picker-indicator {
+    -webkit-appearance: none !important;
+    background: transparent !important;
+    color: transparent !important;
+    -webkit-text-fill-color: transparent !important;
+    opacity: 0 !important;
   }
 }
 
@@ -149,27 +223,27 @@
   .gradient-primary {
     background: var(--gradient-primary);
   }
-  
+
   .gradient-hero {
     background: var(--gradient-hero);
   }
-  
+
   .gradient-price {
     background: var(--gradient-price);
   }
-  
+
   .gradient-cta {
     background: var(--gradient-cta);
   }
-  
+
   .shadow-card {
     box-shadow: var(--shadow-card);
   }
-  
+
   .shadow-elevated {
     box-shadow: var(--shadow-lg);
   }
-  
+
   .text-balance {
     text-wrap: balance;
   }
@@ -179,9 +253,39 @@
   .animation-delay-200 {
     animation-delay: 200ms;
   }
-  
+
   .animation-delay-400 {
     animation-delay: 400ms;
+  }
+
+  /* Hide scrollbar but keep scroll functionality */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+    /* Chrome, Safari and Opera */
+  }
+
+  /* Shimmer loading animation */
+  .animate-shimmer {
+    animation: shimmer 1.5s infinite;
+    background-size: 200% 100%;
+  }
+}
+
+/* Shimmer keyframes */
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+
+  100% {
+    background-position: -200% 0;
   }
 }
 
@@ -218,6 +322,7 @@
   from {
     opacity: 1;
   }
+
   to {
     opacity: 0;
   }
@@ -227,6 +332,7 @@
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -237,6 +343,7 @@
     opacity: 1;
     transform: translateY(0);
   }
+
   to {
     opacity: 0;
     transform: translateY(-20px);
@@ -248,6 +355,7 @@
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -260,6 +368,7 @@
     opacity: 0;
     transform: translateX(30px);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);
@@ -271,6 +380,7 @@
     opacity: 0;
     transform: translateX(-30px);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);
@@ -282,6 +392,7 @@
     opacity: 0;
     transform: translateY(30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -306,4 +417,23 @@
 
 ::view-transition-new(map-section) {
   animation: slide-in-from-bottom 0.5s ease-out forwards;
+}
+
+/* Infinite scroll animation for gallery */
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-scroll {
+  animation: scroll 30s linear infinite;
+}
+
+.animate-scroll:hover {
+  animation-play-state: paused;
 }

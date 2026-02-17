@@ -18,9 +18,14 @@ export const useViewTransition = () => {
           flushSync(() => {
             navigate(to, options);
           });
+        }).finished.then(() => {
+          // Scroll to top after transition completes
+          window.scrollTo(0, 0);
         });
       } else {
         navigate(to, options);
+        // Scroll to top after navigation
+        setTimeout(() => window.scrollTo(0, 0), 0);
       }
     },
     [navigate]

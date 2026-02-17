@@ -1,13 +1,14 @@
-import { Phone, MessageCircle } from "lucide-react";
+import { Phone } from "lucide-react";
+import WhatsAppIcon from "@/components/WhatsAppIcon";
 
 const StickyMobileCTA = () => {
   const handleCall = () => {
-    window.open("tel:+919876543210", "_self");
+    window.open("tel:+919927279127", "_self");
   };
 
   const handleWhatsApp = () => {
-    const message = encodeURIComponent("Hi, I'd like to book a room at New Hotel Mahadev.");
-    window.open(`https://wa.me/919876543210?text=${message}`, "_blank");
+    const message = encodeURIComponent("Namaste 🙏 I'm looking for a room at Hotel Mahadev for my Kedarnath yatra. Please share availability and rates.");
+    window.open(`https://wa.me/919927279127?text=${message}`, "_blank");
   };
 
   return (
@@ -24,7 +25,7 @@ const StickyMobileCTA = () => {
           onClick={handleWhatsApp}
           className="flex-1 flex items-center justify-center gap-2 h-12 rounded-xl bg-[#25D366] text-white font-semibold transition-all duration-300 hover:brightness-110"
         >
-          <MessageCircle className="h-5 w-5" />
+          <WhatsAppIcon className="h-5 w-5" />
           WhatsApp
         </button>
       </div>
