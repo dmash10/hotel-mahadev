@@ -8,7 +8,7 @@ const LocationSection = () => {
   const locationImages = getZoneMedia('location_section').map(m => m.url);
 
   const openMaps = () => {
-    window.open("https://maps.google.com/?q=New+Hotel+Mahadev+Guptkashi+Uttarakhand", "_blank");
+    window.open("https://www.google.com/maps/search/?api=1&query=30.5549505746706,79.05412617557344", "_blank");
   };
 
   return (

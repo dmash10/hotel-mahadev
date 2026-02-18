@@ -43,7 +43,7 @@ const LocationPage = () => {
   const heroImage = getZoneImage('location_page_hero') || getZoneImage('location_section') || '';
 
   const openMaps = () => {
-    window.open("https://maps.google.com/?q=New+Hotel+Mahadev+Guptkashi+Uttarakhand", "_blank");
+    window.open("https://www.google.com/maps/search/?api=1&query=30.5549505746706,79.05412617557344", "_blank");
   };
 
   return (
@@ -106,7 +106,7 @@ const LocationPage = () => {
               {/* Right: Map */}
               <div className="bg-slate-100 rounded-2xl overflow-hidden h-80 md:h-full min-h-[400px] shadow-lg border border-slate-200">
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3456.789!2d79.0876!3d30.5234!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzDCsDMxJzI0LjIiTiA3OcKwMDUnMTUuNCJF!5e0!3m2!1sen!2sin!4v1234567890"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3435.8001288731016!2d79.05412617557344!3d30.5549505746706!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390834dc9b146e8f%3A0x179b4efe9cf34aed!2sNew%20Hotel%20Mahadev!5e0!3m2!1sen!2sin!4v1771389852203!5m2!1sen!2sin"
                   width="100%"
                   height="100%"
                   style={{ border: 0 }}
